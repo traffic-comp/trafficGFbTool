@@ -30,12 +30,13 @@ const Main = () => {
     setPages(pagesList);
   };
 
-  const ktOffers = async () => {
+
+  const ktOffers = async (setOffers) => {
     const res = await fetch(
-      `${process.env.NEXT_KEITARO_HOST}/api/admin_api/v1/offers`,
+      `${process.env.NEXT_PUBLIC_KEITARO_HOST}/api/admin_api/v1/offers`,
       {
         headers: {
-          "Api-Key": process.env.NEXT_KEITARO_API_KEY,
+          "Api-Key": process.env.NEXT_PUBLIC_KEITARO_API_KEY,
         },
       }
     );
