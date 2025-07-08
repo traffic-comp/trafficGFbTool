@@ -19,6 +19,7 @@ export const metadata = {
     "facebook-domain-verification": "pbxnsseh0ok38y7na1u4xu7fknz7aa",
   },
 };
+import '@/app/global.css';
 
 export default function RootLayout({ children }) {
   return (

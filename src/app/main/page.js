@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import {
+  checkSubscribePages,
   getLeadForms,
   getLeadsByForm,
   getPages,
@@ -9,7 +10,6 @@ import {
 import iso from "@/data/iso.js";
 import getRandomIpByCountry from "@/utils/getRandomIpByCountry";
 import { sendToCrm } from "@/fetch/crm.js";
-import { GET } from "@/fetch/keitaro";
 
 const Main = () => {
   const [pages, setPages] = useState([]);
@@ -31,15 +31,8 @@ const Main = () => {
     setPages(pagesList);
   };
 
-  const ktOffers = async (setOffers) => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_KEITARO_HOST}/api/admin_api/v1/offers`,
-      {
-        headers: {
-          "Api-Key": process.env.NEXT_PUBLIC_KEITARO_API_KEY,
-        },
-      }
-    );
+  const ktOffers = async () => {
+    const res = await fetch("/api/keitaro");
 
     const offers = await res.json();
     setOffers(offers);
@@ -47,18 +40,19 @@ const Main = () => {
 
   useEffect(() => {
     fbPages();
-    GET(setOffers);
-    // ktOffers();
+    ktOffers();
   }, []);
 
   const showLeadsForm = async (pageId, pageAccessToken) => {
     const forms = await getLeadForms(pageId, pageAccessToken);
     subscribeLeadForm(pageId, pageAccessToken);
+    checkSubscribePages(pageId, pageAccessToken);
     setActiveForm(pageAccessToken);
     setForms(forms);
   };
 
   const showLead = async (formId) => {
+    console.log(formId);
     const leads = await getLeadsByForm(formId.id, activeForm);
     setLeads(leads);
   };
@@ -259,7 +253,7 @@ const Main = () => {
         <div className="right flex flex-col h-[100vh] w-[20%]">
           <div className="result-block h-[100%] overflow-y-scroll">
             <p className="text-center p-[10px]">
-              Загружено {result.length} / {complitedLeads}
+              Загружено  {complitedLeads} / {result.length}
             </p>
             <hr className="m-[5px]" />
             <h2>Ready to load</h2>
@@ -280,9 +274,7 @@ const Main = () => {
                 ))
               : ""}
           </div>
-          <button onClick={() => sendToCrm(result, setComplitedLeads)}>
-            Send
-          </button>
+          <button onClick={() => sendToCrm(result)}>Send</button>
         </div>
       </div>
     </>
