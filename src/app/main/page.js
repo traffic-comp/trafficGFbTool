@@ -9,6 +9,7 @@ import {
 import iso from "@/data/iso.js";
 import getRandomIpByCountry from "@/utils/getRandomIpByCountry";
 import { sendToCrm } from "@/fetch/crm.js";
+import { GET } from "@/fetch/keitaro";
 
 const Main = () => {
   const [pages, setPages] = useState([]);
@@ -30,7 +31,6 @@ const Main = () => {
     setPages(pagesList);
   };
 
-
   const ktOffers = async (setOffers) => {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_KEITARO_HOST}/api/admin_api/v1/offers`,
@@ -47,7 +47,8 @@ const Main = () => {
 
   useEffect(() => {
     fbPages();
-    ktOffers();
+    GET(setOffers);
+    // ktOffers();
   }, []);
 
   const showLeadsForm = async (pageId, pageAccessToken) => {
