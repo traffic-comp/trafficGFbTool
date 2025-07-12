@@ -1,0 +1,21 @@
+.fbformItem {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  gap: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #000;
+  cursor: pointer;
+}
+
+.formMarker {
+  width: 15px;
+  height: 15px;
+  border: 2px solid #000;
+  border-radius: 50%;
+}
+.formMarkerActive {
+  background: #0b6ab771;
+  border-color: var(--color-main-blue);
+}

@@ -1,1 +1,34 @@
-@import "tailwindcss";
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+}
+html,
+body,
+#__next {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* если хочешь полностью контролировать скрол */
+}
+li {
+  list-style: none;
+}
+
+:root {
+  --color-gray: #71717a;
+  --color-second-gray: #52525b;
+  --color-active-menu: #e4e4e7;
+  --color-white: #fff;
+  --color-main-blue: #0b69b7;
+  --bg-main: #f8f9fa;
+}
+body {
+  background: var(--bg-main);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}

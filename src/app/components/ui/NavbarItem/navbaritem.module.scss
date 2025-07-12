@@ -1,0 +1,15 @@
+.menuitem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #000;
+}
+
+.menuitem.active {
+  background: var(--color-active-menu);
+}

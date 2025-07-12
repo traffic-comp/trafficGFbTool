@@ -9,7 +9,11 @@ const Auth = () => {
     redirectUri
   )}&scope=${scope}&response_type=${responseType}`;
 
-  return <a href={fbAuthUrl}>Войти через Facebook</a>;
+  
+  return <>
+    <a href={fbAuthUrl}>Войти через Facebook</a>
+    <a href="/main/tt">tiktok</a>
+  </>;
 };
 
 export default Auth;
