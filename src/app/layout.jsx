@@ -1,7 +1,7 @@
 // app/layout.tsx или app/layout.jsx
 import { Geist, Geist_Mono } from "next/font/google";
+import Head from './helpers/Head'
 import Script from "next/script";
-import Head from "next/head"; 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -32,7 +32,6 @@ export const metadata = {
   },
   other: {
     "facebook-domain-verification": "pbxnsseh0ok38y7na1u4xu7fknz7aa",
-    "fb:app_id": "1797611847832615", // <-- Укажи здесь реальный App ID из Facebook App
   },
 };
 
@@ -41,25 +40,7 @@ import "@/app/global.css";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        <meta property="fb:app_id" content="1797611847832615" />
-        <meta
-          property="ia:markup_url"
-          content="https://traffiicg.netlify.app/instant-articles/article.html"
-        />
-        <meta
-          property="ia:markup_url_dev"
-          content="https://traffiicg.netlify.app/instant-articles/dev.html"
-        />
-        <meta
-          property="ia:rules_url"
-          content="https://traffiicg.netlify.app/instant-articles/rules.json"
-        />
-        <meta
-          property="ia:rules_url_dev"
-          content="https://traffiicg.netlify.app/instant-articles/rules-dev.json"
-        />
-      </Head>
+      <Head/>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
