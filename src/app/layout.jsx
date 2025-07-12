@@ -29,6 +29,7 @@ export const metadata = {
       },
     ],
     type: "website",
+    app_id: "1797611847832615",
   },
   other: {
     "facebook-domain-verification": "pbxnsseh0ok38y7na1u4xu7fknz7aa",
