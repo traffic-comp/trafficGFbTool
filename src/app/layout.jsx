@@ -1,6 +1,5 @@
 // app/layout.tsx или app/layout.jsx
 import { Geist, Geist_Mono } from "next/font/google";
-import Head from './helpers/Head'
 import Script from "next/script";
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,7 +40,6 @@ import "@/app/global.css";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head/>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
