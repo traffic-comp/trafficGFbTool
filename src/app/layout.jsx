@@ -1,7 +1,7 @@
 // app/layout.tsx или app/layout.jsx
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
-
+import Head from "next/head"; 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -36,12 +36,30 @@ export const metadata = {
   },
 };
 
-
 import "@/app/global.css";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <Head>
+        <meta property="fb:app_id" content="1797611847832615" />
+        <meta
+          property="ia:markup_url"
+          content="https://traffiicg.netlify.app/instant-articles/article.html"
+        />
+        <meta
+          property="ia:markup_url_dev"
+          content="https://traffiicg.netlify.app/instant-articles/dev.html"
+        />
+        <meta
+          property="ia:rules_url"
+          content="https://traffiicg.netlify.app/instant-articles/rules.json"
+        />
+        <meta
+          property="ia:rules_url_dev"
+          content="https://traffiicg.netlify.app/instant-articles/rules-dev.json"
+        />
+      </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -51,22 +69,22 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-                window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1797611847832615',
-      xfbml      : true,
-      version    : 'v23.0'
-    });
-    FB.AppEvents.logPageView();
-  };
+              window.fbAsyncInit = function() {
+                FB.init({
+                  appId      : '1797611847832615',
+                  xfbml      : true,
+                  version    : 'v23.0'
+                });
+                FB.AppEvents.logPageView();
+              };
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+              (function(d, s, id){
+                 var js, fjs = d.getElementsByTagName(s)[0];
+                 if (d.getElementById(id)) {return;}
+                 js = d.createElement(s); js.id = id;
+                 js.src = "https://connect.facebook.net/en_US/sdk.js";
+                 fjs.parentNode.insertBefore(js, fjs);
+              }(document, 'script', 'facebook-jssdk'));
             `,
           }}
         />
