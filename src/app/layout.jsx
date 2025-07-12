@@ -1,6 +1,8 @@
 // app/layout.tsx или app/layout.jsx
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import Head from './helpers/Head'
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -40,10 +42,10 @@ import "@/app/global.css";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <Head/>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* ВСТАВКА FACEBOOK SDK */}
         <Script
           id="facebook-sdk"
           strategy="afterInteractive"
