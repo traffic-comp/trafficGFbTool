@@ -33,7 +33,7 @@ const Uploaded = () => {
       formData.append("files", file); // добавляем сами файлы
     });
 
-    const res = await fetch("http://localhost:8080/tt/uploadLeadsfile", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/tt/uploadLeadsfile`, {
       method: "POST",
       body: formData,
     });
