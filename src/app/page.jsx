@@ -4,7 +4,7 @@ const Auth = () => {
   const appId = process.env.NEXT_APP_ID;
   const redirectUri = `${process.env.NEXT_SITE_LINK}/callback`;
   const scope =
-    "pages_show_list,ads_management,leads_retrieval,pages_read_engagement,pages_manage_metadata,pages_manage_ads,business_management,email";
+    "pages_show_list,ads_management,leads_retrieval,pages_read_engagement,pages_manage_metadata,pages_manage_ads,business_management,public_profile,email";
   const responseType = "token";
 
   const fbAuthUrl = `https://www.facebook.com/v19.0/dialog/oauth?client_id=${appId}&redirect_uri=${encodeURIComponent(
