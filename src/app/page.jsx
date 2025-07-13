@@ -1,3 +1,5 @@
+import s from "./auth.module.scss";
+
 const Auth = () => {
   const appId = process.env.NEXT_APP_ID;
   const redirectUri = `${process.env.NEXT_SITE_LINK}/callback`;
@@ -9,11 +11,18 @@ const Auth = () => {
     redirectUri
   )}&scope=${scope}&response_type=${responseType}`;
 
-  
-  return <>
-    <a href={fbAuthUrl}>Войти через Facebook</a>
-    <a href="/main/tt">tiktok</a>
-  </>;
+  return (
+    <div className={s.auth}>
+      <a href={fbAuthUrl} className={s.fb}>
+        <img src="assets/icon/fb.png" alt="Facebook logo" />
+        <span>Войти через Facebook</span>
+      </a>
+      <a href="/main/tt" className={s.tt}>
+        <img src="assets/icon/tt.png" alt="Tiktok icon" />
+        <span>tiktok</span>
+      </a>
+    </div>
+  );
 };
 
 export default Auth;

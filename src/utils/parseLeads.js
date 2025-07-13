@@ -84,7 +84,7 @@ export const fbLeads = (leads, isoCode, offer, aff, trafficSource) => {
 
 export const ttLeads = (leads, isoCode, offer, aff, trafficSource) => {
   const leadData = leads.map((lead) => ({
-    full_name: lead.full_name,
+    full_name: lead.fullName,
     phone: lead.phone,
     email: lead.email,
     answers: lead.answers,

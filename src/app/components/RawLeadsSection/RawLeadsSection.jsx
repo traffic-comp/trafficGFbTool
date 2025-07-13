@@ -12,8 +12,8 @@ const RawLeadsSection = ({
   totalPages,
   source,
 }) => {
-  const { leads, setIsOpen } = useFBStore();
-
+  const { leads } = useFBStore();
+  console.log(leads);
   return (
     <>
       {leads.length > 0 && (

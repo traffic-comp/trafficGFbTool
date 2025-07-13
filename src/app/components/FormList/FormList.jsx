@@ -1,15 +1,15 @@
-import FanpageListItem from "../ui/FormListItem/FormListItem";
 import s from "./formlist.module.scss";
-const FormList = ({ forms, click, activeFormId }) => {
+const FormList = ({ data, click, renderRow }) => {
   return (
     <ul style={{ width: "100%" }} className={s.fbformList}>
-      {forms.map((form) => (
-        <FanpageListItem
-          form={form}
-          key={form.id}
-          click={() => click(form)}
-          activeFormId={activeFormId}
-        />
+      {data.map((item) => (
+        <li
+          key={item.id}
+          className={s.fbformItem}
+          onClick={click ? () => click(item) : undefined}
+        >
+          {renderRow(item)}
+        </li>
       ))}
     </ul>
   );

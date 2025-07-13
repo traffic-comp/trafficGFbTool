@@ -4,13 +4,19 @@ import RawLeadsSection from "@/app/components/RawLeadsSection/RawLeadsSection";
 import ResultLeadsPanel from "@/app/components/ResultLeadsPanel/ResultLeadsPanel";
 import { getLeadsByForm } from "@/fetch/fb";
 import useFBStore from "@/store/useFbStore";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import s from "@/app/components/FormList/formlist.module.scss";
 
 const FormsPage = () => {
-  const { forms, setLeads, setActiveFormId, activeFormId, activeForm, leads } =
-    useFBStore();
+  const {
+    forms,
+    setLeads,
+    setActiveFormId,
+    activeFormId,
+    activeForm,
+    leads,
+  } = useFBStore();
   const router = useRouter();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,7 +48,7 @@ const FormsPage = () => {
       const answers = Object.entries(data)
         .filter(([key]) => !knownFields.includes(key))
         .map(([key, value]) => `${key}: ${value}`)
-        .join(". "); // <-- вот тут точка с пробелом между ответами
+        .join(". ");
 
       return {
         ...lead,
@@ -60,11 +66,24 @@ const FormsPage = () => {
     if (forms.length === 0) {
       router.push("/main/fb/fanpages");
     }
-  }, [forms, router]); // ← следим за leads
+  }, [forms, router]);
 
   return (
     <>
-      <FormList forms={forms} click={showLead} activeFormId={activeFormId} />
+      <FormList
+        data={forms}
+        click={showLead}
+        renderRow={(form) => (
+          <>
+            <div
+              className={`${s.formMarker} ${
+                activeFormId === form.id ? s.formMarkerActive : ""
+              }`}
+            ></div>
+            <div>{form.name}</div>
+          </>
+        )}
+      />
       <RawLeadsSection
         currentLeads={currentLeads}
         goToPage={goToPage}

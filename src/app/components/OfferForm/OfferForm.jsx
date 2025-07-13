@@ -7,10 +7,12 @@ import { useEffect, useState } from "react";
 
 import s from "./offerform.module.scss";
 import useFBStore from "@/store/useFbStore";
+import useStore from "@/store/useStore";
 
 const OfferForm = ({ source }) => {
   const [offers, setOffers] = useState([]);
-  const { leads, setIsOpen, setResult } = useFBStore();
+  const { leads, setResult } = useFBStore();
+  const { setIsOpen } = useStore();
 
   const [isoCode, setIsoCode] = useState("");
   const [offer, setOffer] = useState("");

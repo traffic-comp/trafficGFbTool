@@ -19,26 +19,28 @@ const Navbar = () => {
       text: "TikTok",
       img: "/assets/icon/tt.png",
       alt: "TikTok icon",
-      href: "/main/tt",
+      href: "/main/tt/files",
     },
   ];
 
   const [links, setLinks] = useState(
     baseLinks.map((link) => ({
       ...link,
-      isActive: link.href === pathName,
+      isActive: link.href.includes(pathName.split("/")[2]),
     }))
   );
+
+  console.log();
 
   useEffect(() => {
     setLinks(
       baseLinks.map((link) => ({
         ...link,
-        isActive: link.href === pathName,
+        isActive: link.href.includes(pathName.split("/")[2]),
       }))
     );
   }, [pathName]);
-  
+
   return (
     <div className={s.navbar}>
       <div className={s.logo}>

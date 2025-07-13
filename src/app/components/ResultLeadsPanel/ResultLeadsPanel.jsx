@@ -1,9 +1,11 @@
 import useFBStore from "@/store/useFbStore";
 import LeadsList from "../LeadsList/LeadsList";
 import s from "./resultleadspanel.module.scss";
+import useStore from "@/store/useStore";
 
 const ResultLeadsPanel = () => {
-  const { isOpen, setIsOpen, result } = useFBStore();
+  const { result } = useFBStore();
+  const {isOpen, setIsOpen} = useStore()
   return (
     <>
       {isOpen && (

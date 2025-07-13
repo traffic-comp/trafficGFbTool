@@ -1,14 +1,21 @@
+'use client';
+
 export const getPages = async (accessToken) => {
   try {
     const res = await fetch(
       `https://graph.facebook.com/v19.0/me/accounts?access_token=${accessToken}`
     );
-    const { data } = await res.json();
 
-    if (!res.ok) throw data;
+    if (res.status === 400) {
+      window.location.href = '/';
+      return;
+    }
+
+    const { data } = await res.json();
     return data;
   } catch (error) {
-    console.error("Ошибка при получении страниц:", error);
+    window.location.href = '/';
+    console.error('Ошибка при получении страниц:', error);
   }
 };
 
@@ -17,13 +24,17 @@ export const getLeadForms = async (pageId, pageAccessToken) => {
     const res = await fetch(
       `https://graph.facebook.com/v19.0/${pageId}/leadgen_forms?access_token=${pageAccessToken}`
     );
-    const { data } = await res.json();
 
-    if (!res.ok) throw data;
+    if (res.status === 400) {
+      window.location.href = '/';
+      return;
+    }
+
+    const { data } = await res.json();
 
     return data;
   } catch (error) {
-    console.error("Ошибка при получении лид-форм:", error);
+    console.error('Ошибка при получении лид-форм:', error);
   }
 };
 
@@ -32,13 +43,15 @@ export const getPagesWithTokens = async () => {
     const res = await fetch(
       `https://graph.facebook.com/v19.0/me/accounts?access_token=${accessToken}`
     );
+
+    if (res.status === 400) {
+      window.location.href = '/';
+      return;
+    }
+
     const data = await res.json();
-
-    if (!res.ok) throw data;
-
-    console.log("Pages with tokens:", data.data);
   } catch (error) {
-    console.error("Ошибка при получении страниц с токенами:", error);
+    console.error('Ошибка при получении страниц с токенами:', error);
   }
 };
 
@@ -47,10 +60,14 @@ export const getLeadsByForm = async (formId, access_token) => {
     const res = await fetch(
       `https://graph.facebook.com/v19.0/${formId}/leads?access_token=${access_token}&fields=field_data,created_time`
     );
-    const data = await res.json();
+    const { data } = await res.json();
 
-    if (!res.ok) throw data;
-    return data.data;
+    if (res.status === 400) {
+      window.location.href = '/';
+      return;
+    }
+
+    return data;
   } catch (error) {
     console.error(`Ошибка при получении лидов для формы ${formId}:`, error);
     return null;
@@ -75,21 +92,21 @@ export const subscribeLeadForm = async (pageId, pageAccessToken) => {
     const res = await fetch(
       `https://graph.facebook.com/v19.0/${pageId}/subscribed_apps`,
       {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
           access_token: pageAccessToken,
-          subscribed_fields: "leadgen",
+          subscribed_fields: 'leadgen',
         }),
       }
     );
 
     const data = await res.json();
-    console.log("✅ Проверка подписка:", data);
+    console.log('✅ Проверка подписка:', data);
   } catch (err) {
-    console.error("❌ Ошибка подписки:", err);
+    console.error('❌ Ошибка подписки:', err);
   }
 };
 export const checkSubscribePages = async (pageId, pageAccessToken) => {
@@ -98,20 +115,20 @@ export const checkSubscribePages = async (pageId, pageAccessToken) => {
     const res = await fetch(
       `https://graph.facebook.com/v19.0/${pageId}/subscribed_apps`,
       {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
           access_token: pageAccessToken,
-          subscribed_fields: "leadgen",
+          subscribed_fields: 'leadgen',
         }),
       }
     );
 
     const data = await res.json();
-    console.log("✅ Подписка успешно:", data);
+    console.log('✅ Подписка успешно:', data);
   } catch (err) {
-    console.error("❌ Ошибка подписки:", err);
+    console.error('❌ Ошибка подписки:', err);
   }
 };

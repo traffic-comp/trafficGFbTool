@@ -7,7 +7,7 @@ const Page = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.push("/main/tt/files");
+    router.push("/main/fb/fanpages");
   }, []);
 
   return <></>;

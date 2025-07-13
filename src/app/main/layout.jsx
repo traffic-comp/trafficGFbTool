@@ -1,3 +1,5 @@
+"use client";
+
 import s from "@/app/main/layout.module.scss";
 import Navbar from "@/app/components/Navbar/Navbar";
 import Header from "@/app/components/Header/Header";
