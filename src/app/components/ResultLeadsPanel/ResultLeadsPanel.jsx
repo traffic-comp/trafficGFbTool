@@ -2,10 +2,12 @@ import useFBStore from "@/store/useFbStore";
 import LeadsList from "../LeadsList/LeadsList";
 import s from "./resultleadspanel.module.scss";
 import useStore from "@/store/useStore";
+import { sendToCrm } from "@/fetch/crm";
 
 const ResultLeadsPanel = () => {
   const { result } = useFBStore();
-  const {isOpen, setIsOpen} = useStore()
+  const { isOpen, setIsOpen } = useStore();
+
   return (
     <>
       {isOpen && (
@@ -57,7 +59,7 @@ const ResultLeadsPanel = () => {
           {isOpen && (
             <button
               className={`${s.verticalBtn} ${s.crm}`}
-              onClick={() => alert("Action")}
+              onClick={() => sendToCrm(result)}
             >
               Send to CRM
             </button>

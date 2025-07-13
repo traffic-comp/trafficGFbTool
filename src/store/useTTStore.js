@@ -12,6 +12,11 @@ const useTTStore = create((set) => ({
     set((state) => ({
       files: state.files.filter((f) => f.id !== fileId),
     })),
+
+  clear: () =>
+    set(() => ({
+      files: [],
+    })),
 }));
 
 export default useTTStore;

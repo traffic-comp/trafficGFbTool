@@ -7,26 +7,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 const Files = () => {
-  const { setLeads } = useFBStore();
   const { files, clear } = useTTStore();
 
-  const sendFileToServer = async (e) => {
-    const formData = new FormData();
-
-    files.forEach(({ file }) => {
-      formData.append("files", file); // добавляем сами файлы
-    });
-
-    const res = await fetch("http://localhost:8080/tt/uploadLeadsfile", {
-      method: "POST",
-      body: formData,
-    });
-
-    const { data, msg } = await res.json();
-    setLeads(data);
-  };
-
-  useEffect(() => {
+  useState(() => {
     clear();
   }, []);
 
