@@ -1,7 +1,15 @@
+@import "tailwindcss";
+
+@layer components {
+  .rawLeadsRow {
+    @apply grid px-4 py-3 border-b border-[#eee] box-border;
+  }
+
+  .rawLeadsRow span {
+    @apply overflow-hidden text-ellipsis whitespace-nowrap;
+  }
+}
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
 }
 html,

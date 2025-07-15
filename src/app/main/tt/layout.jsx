@@ -1,13 +1,20 @@
 "use client";
-import s from "@/app/main/fb/page.module.scss";
-import Breadcrumbs from "@/app/components/ui/Breadcrumbs/Breadcrumbs";
+import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
+import MessageList from "@/app/components/ui/Message";
+import useErrorStore from "@/store/useErrorStore";
 
 const FacebookPage = ({ children }) => {
+  const { type, message } = useErrorStore();
+
+
+  console.log(type, message)
   return (
-    <div className={s.fanpages}>
-      <h2 className={s.path}>
+    <div className="flex-1 flex flex-col m-[24px] p-[24px] bg-white">
+      <h2 className="text-[32px] mb-[36px] text-[var(--color-main-blue)] uppercase">
         <Breadcrumbs />
       </h2>
+      <MessageList type={type} message={message} />
+
 
       {children}
     </div>

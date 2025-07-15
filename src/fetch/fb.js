@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 export const getPages = async (accessToken) => {
   try {
@@ -7,15 +7,15 @@ export const getPages = async (accessToken) => {
     );
 
     if (res.status === 400) {
-      window.location.href = '/';
+      window.location.href = "/";
       return;
     }
 
     const { data } = await res.json();
     return data;
   } catch (error) {
-    window.location.href = '/';
-    console.error('Ошибка при получении страниц:', error);
+    window.location.href = "/";
+    console.error("Ошибка при получении страниц:", error);
   }
 };
 
@@ -26,7 +26,7 @@ export const getLeadForms = async (pageId, pageAccessToken) => {
     );
 
     if (res.status === 400) {
-      window.location.href = '/';
+      window.location.href = "/";
       return;
     }
 
@@ -34,7 +34,7 @@ export const getLeadForms = async (pageId, pageAccessToken) => {
 
     return data;
   } catch (error) {
-    console.error('Ошибка при получении лид-форм:', error);
+    console.error("Ошибка при получении лид-форм:", error);
   }
 };
 
@@ -45,13 +45,13 @@ export const getPagesWithTokens = async () => {
     );
 
     if (res.status === 400) {
-      window.location.href = '/';
+      window.location.href = "/";
       return;
     }
 
     const data = await res.json();
   } catch (error) {
-    console.error('Ошибка при получении страниц с токенами:', error);
+    console.error("Ошибка при получении страниц с токенами:", error);
   }
 };
 
@@ -63,7 +63,7 @@ export const getLeadsByForm = async (formId, access_token) => {
     const { data } = await res.json();
 
     if (res.status === 400) {
-      window.location.href = '/';
+      window.location.href = "/";
       return;
     }
 
@@ -92,21 +92,21 @@ export const subscribeLeadForm = async (pageId, pageAccessToken) => {
     const res = await fetch(
       `https://graph.facebook.com/v19.0/${pageId}/subscribed_apps`,
       {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          "Content-Type": "application/x-www-form-urlencoded",
         },
         body: new URLSearchParams({
           access_token: pageAccessToken,
-          subscribed_fields: 'leadgen',
+          subscribed_fields: "leadgen",
         }),
       }
     );
 
     const data = await res.json();
-    console.log('✅ Проверка подписка:', data);
+    console.log("✅ Проверка подписка:", data);
   } catch (err) {
-    console.error('❌ Ошибка подписки:', err);
+    console.error("❌ Ошибка подписки:", err);
   }
 };
 export const checkSubscribePages = async (pageId, pageAccessToken) => {
@@ -115,20 +115,20 @@ export const checkSubscribePages = async (pageId, pageAccessToken) => {
     const res = await fetch(
       `https://graph.facebook.com/v19.0/${pageId}/subscribed_apps`,
       {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          "Content-Type": "application/x-www-form-urlencoded",
         },
         body: new URLSearchParams({
           access_token: pageAccessToken,
-          subscribed_fields: 'leadgen',
+          subscribed_fields: "leadgen",
         }),
       }
     );
 
     const data = await res.json();
-    console.log('✅ Подписка успешно:', data);
+    console.log("✅ Подписка успешно:", data);
   } catch (err) {
-    console.error('❌ Ошибка подписки:', err);
+    console.error("❌ Ошибка подписки:", err);
   }
 };

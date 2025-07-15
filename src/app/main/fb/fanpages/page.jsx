@@ -1,8 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { getLeadForms, getPages } from "@/fetch/fb";
-import s from "./fanpages.module.scss";
-import FanpagesList from "@/app/components/FanpagesList/FanpagesList";
+import FanpagesList from "@/app/components/FanpagesList";
 import useFBStore from "@/store/useFbStore";
 import { useRouter } from "next/navigation";
 
@@ -28,7 +27,7 @@ const FanpagesPage = () => {
   }, []);
 
   return (
-    <div className={s.fanpages}>
+    <div className="flex-1 flex flex-col m-[24px] p-[24px] bg-white">
       <FanpagesList  onItemClick={showLeadsForm} />
     </div>
   );

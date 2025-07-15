@@ -1,22 +1,19 @@
 "use client";
-import FormList from "@/app/components/FormList/FormList";
-import RawLeadsSection from "@/app/components/RawLeadsSection/RawLeadsSection";
-import ResultLeadsPanel from "@/app/components/ResultLeadsPanel/ResultLeadsPanel";
+import FormList from "@/app/components/FormList";
+import RawLeadsSection from "@/app/components/RawLeadsSection";
+import ResultLeadsPanel from "@/app/components/ResultLeadsPanel";
 import { getLeadsByForm } from "@/fetch/fb";
+import useErrorStore from "@/store/useErrorStore";
 import useFBStore from "@/store/useFbStore";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import s from "@/app/components/FormList/formlist.module.scss";
 
 const FormsPage = () => {
-  const {
-    forms,
-    setLeads,
-    setActiveFormId,
-    activeFormId,
-    activeForm,
-    leads,
-  } = useFBStore();
+  const { forms, setLeads, setActiveFormId, activeFormId, activeForm, leads } =
+    useFBStore();
+
+  const { addMessage } = useErrorStore();
+
   const router = useRouter();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,9 +32,9 @@ const FormsPage = () => {
   };
 
   const showLead = async (formId) => {
-    const rawLeads = await getLeadsByForm(formId.id, activeForm);
+    const rawLeads = await getLeadsByForm(formId, activeForm);
 
-    setActiveFormId(formId.id);
+    setActiveFormId(formId);
 
     const leads = rawLeads.map((lead) => {
       const data = Object.fromEntries(
@@ -59,7 +56,13 @@ const FormsPage = () => {
       };
     });
 
-    setLeads(leads);
+    if (leads.length) {
+      addMessage('success','Данные с формы получены')
+      setLeads(leads);
+    }
+    else{
+      addMessage('error','Ошибка получения данных')
+    }
   };
 
   useEffect(() => {
@@ -76,8 +79,10 @@ const FormsPage = () => {
         renderRow={(form) => (
           <>
             <div
-              className={`${s.formMarker} ${
-                activeFormId === form.id ? s.formMarkerActive : ""
+              className={`w-[15px] h-[15px] border-[2px] border-black rounded-[50%] ${
+                activeFormId === form.id
+                  ? "w-[15px] h-[15px] border-[2px] border-[var(--color-main-blue)] rounded-[50%] bg-[#0b6ab771] "
+                  : ""
               }`}
             ></div>
             <div>{form.name}</div>
