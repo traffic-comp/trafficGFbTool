@@ -1,10 +1,7 @@
 "use client";
-import FormList from "@/app/components/FormList";
 import RawLeadsSection from "@/app/components/RawLeadsSection";
 import ResultLeadsPanel from "@/app/components/ResultLeadsPanel";
-import useErrorStore from "@/store/useErrorStore";
 import useFBStore from "@/store/useFbStore";
-import useTTStore from "@/store/useTTStore";
 import { useState } from "react";
 
 const Uploaded = () => {
