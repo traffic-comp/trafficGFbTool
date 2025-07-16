@@ -1,13 +1,19 @@
 "use client";
 
+import useErrorStore from "@/store/useErrorStore";
+
 export const getPages = async (accessToken) => {
+  const { addMessage } = useErrorStore.getState();
   try {
     const res = await fetch(
       `https://graph.facebook.com/v19.0/me/accounts?access_token=${accessToken}`
     );
 
     if (res.status === 400) {
-      window.location.href = "/";
+      addMessage("error", "Для получения страниц, нужно авторизоваться");
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 400);
       return;
     }
 
@@ -26,7 +32,10 @@ export const getLeadForms = async (pageId, pageAccessToken) => {
     );
 
     if (res.status === 400) {
-      window.location.href = "/";
+      addMessage("error", "Для получения форм, нужно авторизоваться");
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 400);
       return;
     }
 
@@ -45,7 +54,9 @@ export const getPagesWithTokens = async () => {
     );
 
     if (res.status === 400) {
-      window.location.href = "/";
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 400);
       return;
     }
 
@@ -63,7 +74,11 @@ export const getLeadsByForm = async (formId, access_token) => {
     const { data } = await res.json();
 
     if (res.status === 400) {
-      window.location.href = "/";
+      addMessage("error", "Для получения лидов из форму, нужно авторизоваться");
+
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 400);
       return;
     }
 

@@ -13,7 +13,7 @@ const FacebookPage = ({ children }) => {
       <h2 className="text-[32px] mb-[36px] text-[var(--color-main-blue)] uppercase">
         <Breadcrumbs />
       </h2>
-      <MessageList type={type} message={message} />
+      <MessageList/>
 
 
       {children}

@@ -1,3 +1,4 @@
+"use client";
 import useErrorStore from "@/store/useErrorStore";
 import { useEffect, useState } from "react";
 

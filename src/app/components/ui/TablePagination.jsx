@@ -11,7 +11,7 @@ const Pagination = ({ currentPage, totalPages, goToPage }) => {
       <button
         onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage === 1}
-        className="flex justify-center items-center px-[15px] py-[17px] bg-white shadow-[0_1px_1px_0_#0000000f]"
+        className="flex justify-center items-center px-[15px] py-[17px] bg-white shadow-[0_1px_1px_0_#0000000f] cursor-pointer"
       >
         <BtnArrow fill={currentPage === 1 ? "#71717A" : "#0B69B7"} />
       </button>
@@ -19,7 +19,7 @@ const Pagination = ({ currentPage, totalPages, goToPage }) => {
       <button
         onClick={() => goToPage(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className={`flex justify-center items-center px-[15px] py-[17px] bg-white shadow-[0_1px_1px_0_#0000000f]`}
+        className={`flex justify-center items-center px-[15px] py-[17px] bg-white shadow-[0_1px_1px_0_#0000000f] cursor-pointer`}
       >
         <BtnArrow
           className="rotate-180"

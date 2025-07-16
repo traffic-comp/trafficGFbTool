@@ -1,18 +1,24 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getLeadForms, getPages } from "@/fetch/fb";
 import FanpagesList from "@/app/components/FanpagesList";
 import useFBStore from "@/store/useFbStore";
 import { useRouter } from "next/navigation";
+import Loader from "@/app/components/ui/Loader";
 
 const FanpagesPage = () => {
-  const { setPages, pages, setForms, setActiveForm } = useFBStore();
+  const { setPages, setForms, setActiveForm } = useFBStore();
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const fbPages = async () => {
     const fb_access_token = window.localStorage.getItem("fb_access_token");
     const pagesList = await getPages(fb_access_token);
-    setPages(pagesList);
+
+    if (pagesList) {
+      setPages(pagesList);
+      setLoading(false);
+    }
   };
 
   const showLeadsForm = async (pageId, pageAccessToken) => {
@@ -28,7 +34,8 @@ const FanpagesPage = () => {
 
   return (
     <div className="flex-1 flex flex-col m-[24px] p-[24px] bg-white">
-      <FanpagesList  onItemClick={showLeadsForm} />
+      <Loader isLoading={loading} />
+      {!loading ? <FanpagesList onItemClick={showLeadsForm} /> : ""}
     </div>
   );
 };

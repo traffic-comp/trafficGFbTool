@@ -2,6 +2,7 @@
 import FormList from "@/app/components/FormList";
 import RawLeadsSection from "@/app/components/RawLeadsSection";
 import ResultLeadsPanel from "@/app/components/ResultLeadsPanel";
+import Loader from "@/app/components/ui/Loader";
 import { getLeadsByForm } from "@/fetch/fb";
 import useErrorStore from "@/store/useErrorStore";
 import useFBStore from "@/store/useFbStore";
@@ -16,6 +17,7 @@ const FormsPage = () => {
 
   const router = useRouter();
 
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const leadsPerPage = 12;
   const totalPages = Math.ceil(leads.length / leadsPerPage);
@@ -33,7 +35,6 @@ const FormsPage = () => {
 
   const showLead = async (formId) => {
     const rawLeads = await getLeadsByForm(formId, activeForm);
-
     setActiveFormId(formId);
 
     const leads = rawLeads.map((lead) => {
@@ -57,19 +58,13 @@ const FormsPage = () => {
     });
 
     if (leads.length) {
-      addMessage('success','Данные с формы получены')
+      addMessage("success", "Данные с формы получены");
+      setLoading(false);
       setLeads(leads);
-    }
-    else{
-      addMessage('error','Ошибка получения данных')
+    } else {
+      addMessage("error", "Ошибка получения данных");
     }
   };
-
-  useEffect(() => {
-    if (forms.length === 0) {
-      router.push("/main/fb/fanpages");
-    }
-  }, [forms, router]);
 
   return (
     <>
@@ -89,14 +84,20 @@ const FormsPage = () => {
           </>
         )}
       />
-      <RawLeadsSection
-        currentLeads={currentLeads}
-        goToPage={goToPage}
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        source={"fb"}
-      />
+
+      {!loading ? (
+        <RawLeadsSection
+          currentLeads={currentLeads}
+          goToPage={goToPage}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          source={"fb"}
+        />
+      ) : (
+        <Loader isLoading={loading} />
+      )}
+
       <ResultLeadsPanel />
     </>
   );

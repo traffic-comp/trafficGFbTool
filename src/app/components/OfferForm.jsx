@@ -78,8 +78,8 @@ const OfferForm = ({ source }) => {
           >
             <option value="">Offer</option>
             <option value="test">test</option>
-            {offers.length
-              ? offers.map((offer) => (
+            {offers
+              ? offers?.map((offer) => (
                   <option value={offer.name} key={offer.id}>
                     {offer.name}
                   </option>
