@@ -7,9 +7,10 @@ const FanpagesList = ({ onItemClick }) => {
 
   return (
     <div className="h-[100%] flex flex-col">
-      <div className="grid grid-cols-3 gap-[30px]" key={page.id}>
+      <div className="grid grid-cols-3 gap-[30px]">
         {pages.map((page) => (
           <FanpageItem
+            key={page.id}
             text={`${page.category} ${page.name}`}
             click={() => onItemClick(page.id, page.access_token)}
           />
