@@ -64,7 +64,7 @@ const OfferForm = ({ source }) => {
     <>
       <form
         onSubmit={(e) => submitForm(e)}
-        className="flex items-center gap-[12px]"
+        className="OfferForm flex items-center gap-[12px]"
       >
         <Dropdown
           options={offers.map((o) => o.name)}

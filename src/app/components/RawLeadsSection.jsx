@@ -12,7 +12,6 @@ const RawLeadsSection = ({
   source,
 }) => {
   const { leads } = useFBStore();
-  console.log(leads);
   return (
     <>
       {leads.length > 0 && (

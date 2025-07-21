@@ -10,7 +10,7 @@ const LeadsList = ({
   isResult,
 }) => {
   const [activeMenu, setActiveMenu] = useState(null);
-  const { deleteLead, result } = useFBStore();
+  const { deleteLead } = useFBStore();
   const columnCount = headers.length;
 
   const gridStyle = containerStyle.gridTemplateColumns
@@ -19,7 +19,6 @@ const LeadsList = ({
 
   const showMenu = (id) => {
     setActiveMenu(id);
-    console.log(result);
   };
 
   useEffect(() => {

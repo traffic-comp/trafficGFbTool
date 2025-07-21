@@ -39,7 +39,7 @@ const FileUpload = () => {
 
   return (
     <div
-      className="w-[fit-content]"
+      className="fileUpload w-[fit-content]"
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}

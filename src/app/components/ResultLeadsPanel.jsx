@@ -2,7 +2,6 @@ import useFBStore from "@/store/useFbStore";
 import LeadsList from "@/app/components/LeadsList";
 import useStore from "@/store/useStore";
 import { sendToCrm } from "@/fetch/crm";
-import Message from "./ui/Message";
 import useErrorStore from "@/store/useErrorStore";
 
 const ResultLeadsPanel = () => {

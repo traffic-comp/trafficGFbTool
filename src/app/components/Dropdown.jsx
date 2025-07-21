@@ -45,7 +45,7 @@ const Dropdown = ({ options = [], placeholder = "", onChange, value = "" }) => {
   }, []);
 
   return (
-    <div className="relative w-[150px]" ref={dropdownRef}>
+    <div className="dropDown relative w-[150px]" ref={dropdownRef}>
       <input
         type="text"
         placeholder={placeholder}

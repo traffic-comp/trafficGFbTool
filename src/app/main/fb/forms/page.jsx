@@ -6,6 +6,11 @@ import Loader from "@/app/components/ui/Loader";
 import { getLeadsByForm } from "@/fetch/fb";
 import useErrorStore from "@/store/useErrorStore";
 import useFBStore from "@/store/useFbStore";
+import {
+  extractAnswers,
+  FIELD_KEYWORDS,
+  getFieldValueByKeywords,
+} from "@/utils/parseLeads";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -29,6 +34,7 @@ const FormsPage = () => {
 
   const goToPage = (page) => {
     if (page >= 1 && page <= totalPages) {
+      console.log(currentLeads, "currentLeads");
       setCurrentPage(page);
     }
   };
@@ -38,22 +44,12 @@ const FormsPage = () => {
     setActiveFormId(formId);
 
     const leads = rawLeads.map((lead) => {
-      const data = Object.fromEntries(
-        lead.field_data.map(({ name, values }) => [name, values?.[0] ?? ""])
-      );
-
-      const knownFields = ["full name", "email", "phone"];
-      const answers = Object.entries(data)
-        .filter(([key]) => !knownFields.includes(key))
-        .map(([key, value]) => `${key}: ${value}`)
-        .join(". ");
-
       return {
         ...lead,
-        fullName: data["full name"] || "",
-        email: data["email"] || "",
-        phone: data["phone"] || "",
-        answers, // строка
+        fullName: getFieldValueByKeywords(lead, FIELD_KEYWORDS.full_name) || "",
+        email: getFieldValueByKeywords(lead, FIELD_KEYWORDS.email) || "",
+        phone: getFieldValueByKeywords(lead, FIELD_KEYWORDS.phone) || "",
+        answers: extractAnswers(lead), // строка
       };
     });
 

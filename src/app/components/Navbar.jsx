@@ -39,7 +39,7 @@ const Navbar = () => {
   }, [pathName]);
 
   return (
-    <div className="pl-6 pr-1 py-6 h-[100vh] bg-white">
+    <div className="Navbar pl-6 pr-1 py-6 h-[100vh] bg-white">
       <div className="flex items-center mb-[56px]">
         <img
           src="/assets/img/logo.png"
