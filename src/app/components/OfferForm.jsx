@@ -41,6 +41,7 @@ const OfferForm = ({ source }) => {
     e.preventDefault();
 
     if (source === "fb") {
+      console.log( isoCode, offer, aff, trafficSource)
       if (leads && isoCode && offer && aff && trafficSource) {
         const leadData = fbLeads(leads, isoCode, offer, aff, trafficSource);
 
@@ -50,6 +51,7 @@ const OfferForm = ({ source }) => {
           return addMessage("success", "Данные дополнены!");
         }
       }
+      console.log(leadData)
       return addMessage("warning", "Сперва заполни форму");
     } else {
       if (leads && isoCode && offer && aff && trafficSource) {

@@ -1,6 +1,6 @@
 const FormList = ({ data, click, renderRow }) => {
   return (
-    <ul style={{ width: "100%" }} className="formList mb-[36px] max-h-[77px] overflow-y-auto">
+    <ul style={{ width: "100%" }} className="formList mb-[36px] h-[141px] overflow-y-auto">
       {data?.map((item) => (
         <li
           key={item.id}

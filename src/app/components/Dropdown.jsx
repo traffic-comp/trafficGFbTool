@@ -26,6 +26,11 @@ const Dropdown = ({ options = [], placeholder = "", onChange, value = "" }) => {
     setFilteredOptions(filtered);
   };
 
+  const inputHandle = (e) => {
+    setInputValue(e.target.value);
+    onChange(e.target.value);
+  };
+
   const handleSelect = (val) => {
     setInputValue(val);
     onChange(val);
@@ -53,6 +58,7 @@ const Dropdown = ({ options = [], placeholder = "", onChange, value = "" }) => {
         value={inputValue}
         onChange={handleChange}
         onFocus={() => setOpen(true)}
+        onInput={inputHandle}
       />
       {open && filteredOptions.length > 0 && (
         <div className="absolute z-10 top-full left-0 right-0 bg-white border rounded-[8px] max-h-[200px] overflow-y-auto shadow-md">
