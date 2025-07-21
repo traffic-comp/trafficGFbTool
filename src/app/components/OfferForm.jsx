@@ -24,7 +24,13 @@ const OfferForm = ({ source }) => {
 
   const ktOffers = async () => {
     const offers = await getOffers();
-    setOffers(offers);
+    
+    if (offers) {
+      return setOffers(offers);
+    }
+    
+    setOffers([]);
+    addMessage("error", "Ошибка получении офферов с кт");
   };
 
   useEffect(() => {
