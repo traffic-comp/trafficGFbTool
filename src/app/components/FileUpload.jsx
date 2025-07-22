@@ -32,10 +32,8 @@ const FileUpload = () => {
 
     setFiles({ file, id: crypto.randomUUID() });
     e.target.value = "";
-    console.log(files);
   };
 
-  console.log(files);
 
   return (
     <div

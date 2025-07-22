@@ -44,7 +44,6 @@ export function normalize(str) {
     .replace(/["'“”‘’«»]/g, "") // убираем кавычки
     .trim();
 }
-
 export function extractAnswers(lead) {
   const allKeywords = [
     ...FIELD_KEYWORDS.full_name,
@@ -71,7 +70,7 @@ export const fbLeads = (leads, isoCode, offer, aff, trafficSource) => {
   const leadData = leads.map((lead) => {
     return {
       full_name: getFieldValueByKeywords(lead, FIELD_KEYWORDS.full_name),
-      phone: getFieldValueByKeywords(lead, FIELD_KEYWORDS.phone),
+      phone: getFieldValueByKeywords(lead, FIELD_KEYWORDS.phone).replace(/\s+/g, ""),
       email: getFieldValueByKeywords(lead, FIELD_KEYWORDS.email),
       answers: extractAnswers(lead),
       country: isoCode,
@@ -88,7 +87,7 @@ export const fbLeads = (leads, isoCode, offer, aff, trafficSource) => {
 export const ttLeads = (leads, isoCode, offer, aff, trafficSource) => {
   const leadData = leads.map((lead) => ({
     full_name: lead.fullName,
-    phone: lead.phone,
+    phone: lead.phone.replace(/\s+/g, ""),
     email: lead.email,
     answers: lead.answers,
     country: isoCode,

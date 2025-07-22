@@ -20,8 +20,6 @@ const FormsPage = () => {
 
   const { addMessage } = useErrorStore();
 
-  const router = useRouter();
-
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const leadsPerPage = 12;
@@ -47,8 +45,16 @@ const FormsPage = () => {
       return {
         ...lead,
         fullName: getFieldValueByKeywords(lead, FIELD_KEYWORDS.full_name) || "",
-        email: getFieldValueByKeywords(lead, FIELD_KEYWORDS.email) || "",
-        phone: getFieldValueByKeywords(lead, FIELD_KEYWORDS.phone) || "",
+        email:
+          getFieldValueByKeywords(lead, FIELD_KEYWORDS.email).replace(
+            /\s+/g,
+            " "
+          ) || "",
+        phone:
+          getFieldValueByKeywords(lead, FIELD_KEYWORDS.phone).replace(
+            /\s+/g,
+            " "
+          ) || "",
         answers: extractAnswers(lead), // строка
       };
     });

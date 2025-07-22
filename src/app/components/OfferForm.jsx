@@ -24,11 +24,11 @@ const OfferForm = ({ source }) => {
 
   const ktOffers = async () => {
     const offers = await getOffers();
-    
+
     if (offers) {
       return setOffers(offers);
     }
-    
+
     setOffers([]);
     addMessage("error", "Ошибка получении офферов с кт");
   };
@@ -41,7 +41,7 @@ const OfferForm = ({ source }) => {
     e.preventDefault();
 
     if (source === "fb") {
-      console.log( isoCode, offer, aff, trafficSource)
+      console.log(isoCode, offer, aff, trafficSource);
       if (leads && isoCode && offer && aff && trafficSource) {
         const leadData = fbLeads(leads, isoCode, offer, aff, trafficSource);
 
@@ -51,7 +51,6 @@ const OfferForm = ({ source }) => {
           return addMessage("success", "Данные дополнены!");
         }
       }
-      console.log(leadData)
       return addMessage("warning", "Сперва заполни форму");
     } else {
       if (leads && isoCode && offer && aff && trafficSource) {
@@ -96,7 +95,7 @@ const OfferForm = ({ source }) => {
         />
 
         <Dropdown
-          options={["FB", "Google", "TT"]}
+          options={["FB", "Google", "TikTok"]}
           value={trafficSource}
           onChange={(val) => setTrafficSource(val)}
           placeholder="Traffic Source"

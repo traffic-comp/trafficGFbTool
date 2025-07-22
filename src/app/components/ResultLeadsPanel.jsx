@@ -5,7 +5,7 @@ import { sendToCrm } from "@/fetch/crm";
 import useErrorStore from "@/store/useErrorStore";
 
 const ResultLeadsPanel = () => {
-  const { result } = useFBStore();
+  const { result,setResult } = useFBStore();
   const { isOpen, setIsOpen } = useStore();
 
   const { addMessage } = useErrorStore();
@@ -17,6 +17,7 @@ const ResultLeadsPanel = () => {
     }
 
     sendToCrm(result);
+    setResult([])
   };
 
   return (
@@ -56,7 +57,7 @@ const ResultLeadsPanel = () => {
             renderRow={(lead, className) => (
               <>
                 <span className={className}>{lead.full_name}</span>
-                <span className={className}>{lead.phone}</span>
+                <span className={className}>{lead.phone.replace(/\s+/g, "")}</span>
                 <span className={className}>{lead.email}</span>
                 <span className={className}>{lead.answers}</span>
                 <span className={className}>{lead.country}</span>
