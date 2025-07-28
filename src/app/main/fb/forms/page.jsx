@@ -11,8 +11,7 @@ import {
   FIELD_KEYWORDS,
   getFieldValueByKeywords,
 } from "@/utils/parseLeads";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const FormsPage = () => {
   const { forms, setLeads, setActiveFormId, activeFormId, activeForm, leads } =

@@ -1,10 +1,10 @@
 "use client";
-import { login } from "@/fetch/user";
+import { registrate } from "@/fetch/user";
 import useErrorStore from "@/store/useErrorStore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const Auth = () => {
+const Register = () => {
   const { addMessage } = useErrorStore();
   const router = useRouter();
   const [creds, setCreds] = useState({
@@ -14,7 +14,7 @@ const Auth = () => {
 
   const sendForm = async (e) => {
     e.preventDefault();
-    const data = await login(creds);
+    const data = await registrate(creds);
 
     if (data.type === "error") {
       return addMessage("error", data.message);
@@ -22,8 +22,8 @@ const Auth = () => {
 
     if (data.type === "success") {
       addMessage("success", data.message);
-      localStorage.setItem("authToken", data.token);
-      router.push("/main/fb/fanpages");
+      addMessage("success", 'Авторизируйтесь');
+      router.push('/')
 
       return setCreds({
         login: "",
@@ -31,6 +31,7 @@ const Auth = () => {
       });
     }
   };
+
   return (
     <div className="flex items-center justify-center h-screen w-full gap-8">
       <div className="flex flex-col items-center bg-[#D6D8E9] rounded-[30px] p-[24px] w-[310px]">
@@ -38,7 +39,9 @@ const Auth = () => {
           <img src="/assets/img/logo.png" className="w-[55px]" alt="" />
           <h1 className="font-bold text-[24px] text-white">TrafficG</h1>
         </div>
-        <p className="text-center mb-[5px] text-[18px] font-bold">Войти</p>
+        <p className="text-center mb-[5px] text-[18px] font-bold">
+          Регистрация
+        </p>
         <form
           className="flex flex-col justify-center w-[100%]"
           onSubmit={sendForm}
@@ -71,12 +74,12 @@ const Auth = () => {
           "
           />
         </form>
-        <div className="flex gap-2 mt-[10px]">
+        <div className="flex flex-col gap-2 mt-[10px]">
+          <a href="/" className="cursor-pointer">
+            Войти
+          </a>
           <a href="/main/tt" className="cursor-pointer">
             TikTok
-          </a>
-          <a href="/register" className="cursor-pointer">
-            Регистрация
           </a>
         </div>
       </div>
@@ -84,4 +87,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default Register;

@@ -10,18 +10,14 @@ export const getPages = async (accessToken) => {
     );
 
     if (res.status === 400) {
-      addMessage("error", "Для получения страниц, нужно авторизоваться");
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 400);
+      addMessage("error", "Для получения страниц, нужно подключить fb");
       return;
     }
 
     const { data } = await res.json();
     return data;
   } catch (error) {
-    window.location.href = "/";
-    console.error("Ошибка при получении страниц:", error);
+    throw new Error("Ошибка при получении страниц:", error);
   }
 };
 
@@ -32,10 +28,7 @@ export const getLeadForms = async (pageId, pageAccessToken) => {
     );
 
     if (res.status === 400) {
-      addMessage("error", "Для получения форм, нужно авторизоваться");
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 400);
+      addMessage("error", "Для получения форм, нужно подключить fb");
       return;
     }
 
@@ -43,7 +36,7 @@ export const getLeadForms = async (pageId, pageAccessToken) => {
 
     return data;
   } catch (error) {
-    console.error("Ошибка при получении лид-форм:", error);
+    throw new Error("Ошибка при получении лид-форм:", error);
   }
 };
 
@@ -54,9 +47,6 @@ export const getPagesWithTokens = async () => {
     );
 
     if (res.status === 400) {
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 400);
       return;
     }
 
@@ -74,18 +64,13 @@ export const getLeadsByForm = async (formId, access_token) => {
     const { data } = await res.json();
 
     if (res.status === 400) {
-      addMessage("error", "Для получения лидов из форму, нужно авторизоваться");
-
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 400);
+      addMessage("error", "Для получения лидов из форму, нужно подключить fb");
       return;
     }
 
     return data;
   } catch (error) {
-    console.error(`Ошибка при получении лидов для формы ${formId}:`, error);
-    return null;
+    throw new Error(`Ошибка при получении лидов для формы ${formId}:`, error);
   }
 };
 
@@ -120,6 +105,7 @@ export const subscribeLeadForm = async (pageId, pageAccessToken) => {
 
     const data = await res.json();
     console.log("✅ Проверка подписка:", data);
+    return data;
   } catch (err) {
     console.error("❌ Ошибка подписки:", err);
   }

@@ -38,6 +38,7 @@ export const metadata = {
 };
 
 import "@/app/global.css";
+import MessageList from "./components/ui/Message";
 
 export default function RootLayout({ children }) {
   return (
@@ -70,6 +71,7 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
+        <MessageList />
         {children}
       </body>
     </html>
