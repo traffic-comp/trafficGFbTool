@@ -8,7 +8,6 @@ export default function Callback() {
 
   const setLongLivedToken = async (fb_token) => {
     const authToken = await localStorage.getItem("authToken");
-    console.log(authToken);
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URI}/fb/getLongLivedToken`,
       {

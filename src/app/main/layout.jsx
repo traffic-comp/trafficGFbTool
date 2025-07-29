@@ -11,8 +11,9 @@ function MainLayout({ children }) {
 
   const isAuth = async () => {
     const authToken = localStorage.getItem("authToken");
-    const { isAuth } = await chekAuth(authToken);
-
+    const { isAuth, id } = await chekAuth(authToken);
+    localStorage.setItem("userId", id);
+    
     if (!isAuth) {
       return router.push("/");
     }
