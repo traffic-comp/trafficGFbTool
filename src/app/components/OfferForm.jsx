@@ -1,6 +1,5 @@
 "useClient";
 
-import iso from "@/data/iso.js";
 import { getOffers } from "@/fetch/kt";
 import { fbLeads, ttLeads } from "@/utils/parseLeads";
 import { useEffect, useState } from "react";
@@ -15,7 +14,7 @@ const OfferForm = ({ source }) => {
   const { leads, setResult } = useFBStore();
   const { setIsOpen } = useStore();
 
-  const [isoCode, setIsoCode] = useState("");
+  const [isoCode] = useState("");
   const [offer, setOffer] = useState("");
   const [aff, setAff] = useState("");
   const [trafficSource, setTrafficSource] = useState("");
@@ -39,25 +38,22 @@ const OfferForm = ({ source }) => {
 
   const submitForm = (e) => {
     e.preventDefault();
-
     if (source === "fb") {
-      console.log(isoCode, offer, aff, trafficSource);
-      if (leads && isoCode && offer && aff && trafficSource) {
-        const leadData = fbLeads(leads, isoCode, offer, aff, trafficSource);
-
+      if (leads && offer && aff && trafficSource) {
+        const leadData = fbLeads(leads, offer, aff, trafficSource);
         if (leadData) {
-          setResult(leadData);
+          setResult(fbLeads(leads, offer, aff, trafficSource));
           setIsOpen(true);
           return addMessage("success", "Данные дополнены!");
         }
       }
       return addMessage("warning", "Сперва заполни форму");
     } else {
-      if (leads && isoCode && offer && aff && trafficSource) {
-        const leadData = ttLeads(leads, isoCode, offer, aff, trafficSource);
+      if (leads  && offer && aff && trafficSource) {
+        const leadData = ttLeads(leads, offer, aff, trafficSource);
 
         if (leadData) {
-          setResult(leadData);
+          setResult(ttLeads(leads, offer, aff, trafficSource));
           setIsOpen(true);
           return addMessage("success", "Данные дополнены!");
         }
@@ -80,12 +76,6 @@ const OfferForm = ({ source }) => {
           placeholder="Offer"
         />
 
-        <Dropdown
-          options={iso}
-          value={isoCode}
-          onChange={(val) => setIsoCode(val)}
-          placeholder="GEO/Country"
-        />
 
         <Dropdown
           options={Array.from({ length: 100 }, (_, i) => (i + 1).toString())}

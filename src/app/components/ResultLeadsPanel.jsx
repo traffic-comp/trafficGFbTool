@@ -3,9 +3,10 @@ import LeadsList from "@/app/components/LeadsList";
 import useStore from "@/store/useStore";
 import { sendToCrm } from "@/fetch/crm";
 import useErrorStore from "@/store/useErrorStore";
+import EditableItem from "./EditableItem";
 
 const ResultLeadsPanel = () => {
-  const { result,setResult } = useFBStore();
+  const { result, setResult } = useFBStore();
   const { isOpen, setIsOpen } = useStore();
 
   const { addMessage } = useErrorStore();
@@ -17,7 +18,7 @@ const ResultLeadsPanel = () => {
     }
 
     sendToCrm(result);
-    setResult([])
+    setResult([]);
   };
 
   return (
@@ -56,17 +57,62 @@ const ResultLeadsPanel = () => {
             isResult={true}
             renderRow={(lead, className) => (
               <>
-                <span className={className}>{lead.full_name}</span>
-                <span className={className}>{lead.phone.replace(/\s+/g, "")}</span>
-                <span className={className}>{lead.email}</span>
-                <span className={className}>{lead.answers}</span>
-                <span className={className}>{lead.country}</span>
-                <span className={className}>{lead.source}</span>
-                <span className={className}>{lead.user_id}</span>
-                <span className={className}>
-                  {lead.landing}/{lead.landing_name}
-                </span>
-                <span className={className}>{lead.ip}</span>
+                <EditableItem
+                  className={className}
+                  id={lead.id}
+                  field={"full_name"}
+                  data={lead.full_name}
+                />
+                {/* <span className={className}>{lead.full_name}</span> */}
+                <EditableItem
+                  className={className}
+                  id={lead.id}
+                  field={"phone"}
+                  data={lead.phone.replace(/\s+/g, "")}
+                />
+                <EditableItem
+                  className={className}
+                  id={lead.id}
+                  field={"email"}
+                  data={lead.email}
+                />
+                <EditableItem
+                  className={className}
+                  id={lead.id}
+                  field={"answers"}
+                  data={lead.answers}
+                />
+                <EditableItem
+                  className={className}
+                  id={lead.id}
+                  field={"country"}
+                  data={lead.country.toUpperCase()}
+                />
+                <EditableItem
+                  className={className}
+                  id={lead.id}
+                  field={"source"}
+                  data={lead.source}
+                />
+                 <EditableItem
+                  className={className}
+                  id={lead.id}
+                  field={"user_id"}
+                  data={lead.user_id}
+                />
+                 <EditableItem
+                  className={className}
+                  id={lead.id}
+                  field={"user_id"}
+                  data={`${lead.landing}/${lead.landing_name}`}
+                />
+                 <EditableItem
+                  result={lead}
+                  className={className}
+                  id={lead.id}
+                  field={"ip"}
+                  data={lead.ip}
+                />
               </>
             )}
           />

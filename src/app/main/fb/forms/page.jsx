@@ -3,9 +3,11 @@ import FormList from "@/app/components/FormList";
 import RawLeadsSection from "@/app/components/RawLeadsSection";
 import ResultLeadsPanel from "@/app/components/ResultLeadsPanel";
 import Loader from "@/app/components/ui/Loader";
+import phonesData from "@/data/phonesData";
 import { getLeadsByForm } from "@/fetch/fb";
 import useErrorStore from "@/store/useErrorStore";
 import useFBStore from "@/store/useFbStore";
+import { getCountryISO } from "@/utils/getCountryISO";
 import {
   extractAnswers,
   FIELD_KEYWORDS,
@@ -41,22 +43,26 @@ const FormsPage = () => {
     setActiveFormId(formId);
 
     const leads = rawLeads.map((lead) => {
+      const phone = getFieldValueByKeywords(lead, FIELD_KEYWORDS.phone).replace(
+        /\s+/g,
+        " "
+      );
+      const isoCode = getCountryISO(phone, phonesData);
       return {
-        ...lead,
-        fullName: getFieldValueByKeywords(lead, FIELD_KEYWORDS.full_name) || "",
+        full_name: getFieldValueByKeywords(lead, FIELD_KEYWORDS.full_name) || "",
         email:
           getFieldValueByKeywords(lead, FIELD_KEYWORDS.email).replace(
             /\s+/g,
             " "
           ) || "",
-        phone:
-          getFieldValueByKeywords(lead, FIELD_KEYWORDS.phone).replace(
-            /\s+/g,
-            " "
-          ) || "",
+        phone: phone || "",
+        geo: isoCode.toUpperCase(),
         answers: extractAnswers(lead), // строка
+        id: lead.id,
       };
     });
+
+    console.log(leads)
 
     if (leads.length) {
       addMessage("success", "Данные с формы получены");

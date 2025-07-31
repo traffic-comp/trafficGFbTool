@@ -1,4 +1,6 @@
+import phonesData from "@/data/phonesData";
 import getRandomIpByCountry from "@/utils/getRandomIpByCountry.js";
+import { getCountryISO } from "./getCountryISO";
 
 export const FIELD_KEYWORDS = {
   full_name: [
@@ -66,36 +68,47 @@ export function getFieldValueByKeywords(lead, keywords) {
   return match?.values?.[0] || "";
 }
 
-export const fbLeads = (leads, isoCode, offer, aff, trafficSource) => {
+export const fbLeads = (leads, offer, aff, trafficSource) => {
+  console.log(leads, "fbleads");
   const leadData = leads.map((lead) => {
+    const phone = lead.phone;
+    const isoCode = getCountryISO(phone, phonesData);
     return {
-      full_name: getFieldValueByKeywords(lead, FIELD_KEYWORDS.full_name),
-      phone: getFieldValueByKeywords(lead, FIELD_KEYWORDS.phone).replace(/\s+/g, ""),
-      email: getFieldValueByKeywords(lead, FIELD_KEYWORDS.email),
-      answers: extractAnswers(lead),
+      full_name: lead.full_name,
+      phone,
+      email: lead.email,
+      answers: lead.answers,
       country: isoCode,
       landing: offer,
       landing_name: offer,
       ip: getRandomIpByCountry(isoCode),
       user_id: aff,
       source: trafficSource,
+      id: lead.id,
     };
   });
+  console.log(leadData, "leadData");
   return leadData;
 };
 
-export const ttLeads = (leads, isoCode, offer, aff, trafficSource) => {
-  const leadData = leads.map((lead) => ({
-    full_name: lead.fullName,
-    phone: lead.phone.replace(/\s+/g, ""),
-    email: lead.email,
-    answers: lead.answers,
-    country: isoCode,
-    landing: offer,
-    landing_name: offer,
-    ip: getRandomIpByCountry(isoCode),
-    user_id: aff,
-    source: trafficSource,
-  }));
+export const ttLeads = (leads, offer, aff, trafficSource) => {
+  const leadData = leads.map((lead) => {
+    const phone = lead.phone.replace(/\s+/g, "");
+    const isoCode = getCountryISO(phone, phonesData);
+
+    return {
+      full_name: lead.full_name,
+      phone: lead.phone.replace(/\s+/g, ""),
+      email: lead.email,
+      answers: lead.answers,
+      country: isoCode,
+      landing: offer,
+      landing_name: offer,
+      ip: getRandomIpByCountry(isoCode),
+      user_id: aff,
+      source: trafficSource,
+      id: lead.id,
+    };
+  });
   return leadData;
 };
