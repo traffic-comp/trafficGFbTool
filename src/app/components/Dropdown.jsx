@@ -14,8 +14,7 @@ const Dropdown = ({ options = [], placeholder = "", onChange, value = "" }) => {
 
   const handleChange = (e) => {
     const val = e.target.value;
-    setInputValue(val);
-    
+    setInputValue(() => val);
     setOpen(true);
     const filtered = options.filter((opt) =>
       opt.toLowerCase().includes(val.toLowerCase())
@@ -50,7 +49,7 @@ const Dropdown = ({ options = [], placeholder = "", onChange, value = "" }) => {
         className="w-full text-[18px] px-2 py-3 border rounded-[8px]"
         value={inputValue}
         onChange={handleChange}
-        // onInput={(e)=> otnChange(e.target.value)}
+        onBlur={(e) => onChange(e.target.value)}
         onFocus={() => setOpen(true)}
       />
       {open && filteredOptions.length > 0 && (
