@@ -19,10 +19,6 @@ const ConnectForm = () => {
     ad: "",
   });
 
-  const [isSubscribedPage, setIsSubscribedPage] = useState({
-    status: false,
-  });
-
   useEffect(() => {
     const fetchPages = async () => {
       const fb_access_token = window.localStorage.getItem("fb_access_token");
@@ -36,7 +32,7 @@ const ConnectForm = () => {
   useEffect(() => {
     const fetchForms = async () => {
       const selectedPage = dto.pages.find((p) => p.name === dto.page);
-      if (!selectedPage) return; // 👈 безопасная проверка
+      if (!selectedPage) return;
 
       const { access_token, id } = selectedPage;
 
@@ -86,61 +82,228 @@ const ConnectForm = () => {
 
     const d = await r.json();
     console.log(d);
-    // setIsSubscribedPage({ ...isSubscribedPage, status: success });
+  };
+
+  const unsubscribePage = async () => {
+    const appAccessToken =
+      "EAAhpx2PEo64BPOOZCNnva8J5iUtnZCm7XM3M7jnm9YXhCN0qCY1zaTwNL4dXRQHoMfV6TAA4e8x808CtbifYrTeYJgxGzpFhwIBEYpaiginsHWHdm9Vgl4G1IK1jqIK3sKVZBErSNKAmxZCCa4gENaaiGzYdtKXiPKHpZAKrHSKqyv13ZCOj5ZBjFv1qfqDmnIfjnG6"; // замени на свои
+
+    const res = await fetch(
+      `https://graph.facebook.com/v19.0/682430928288511/subscribed_apps?access_token=${appAccessToken}`
+    );
+
+    const data = await res.json();
+    console.log("🔌 Отписка от вебхуков:", data);
   };
 
   return (
-    <>
-      <div className="flex gap-5">
-        <Dropdown
-          options={dto.pages?.map((p) => p.name)}
-          value={dto.page}
-          onChange={(val) => setDto({ ...dto, page: val })}
-          placeholder="Fan Page"
-        />
-        {dto.pageForms.length ? (
-          <Dropdown
-            options={dto.pageForms?.map((f) => f.name)}
-            value={dto.form}
-            onChange={(val) => setDto({ ...dto, form: val })}
-            placeholder="Fan page form"
-          />
-        ) : null}
-        <Dropdown
-          options={["CRM", "GOOGLESheets"]}
-          value={dto.type}
-          onChange={(val) => setDto({ ...dto, type: val })}
-          placeholder="Type"
-        />
-        <Dropdown
-          options={[]}
-          value={dto.ad}
-          onChange={(val) => setDto({ ...dto, ad: val })}
-          placeholder="Adset"
-        />
-      </div>
+    <div className="flex flex-col md:flex-row gap-6 p-6 bg-gray-50 rounded-2xl shadow-inner">
+      {/* Левая колонка: форма */}
+      <form className="w-full md:w-1/2 bg-white rounded-2xl p-6 shadow-xl flex flex-col gap-6 border border-gray-200">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-semibold text-gray-800">
+            Создать шаблон
+          </h2>
+        </div>
 
-      {dto.type === "GOOGLESheets" ? (
-        <div className="flex gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 justify-items-center">
           <Dropdown
-            options={[]}
-            value={dto.tableId}
-            onChange={(val) => setDto({ ...dto, tableId: val })}
-            placeholder="TableId"
+            options={dto.pages?.map((p) => p.name)}
+            value={dto.page}
+            onChange={(val) => setDto({ ...dto, page: val })}
+            placeholder="Fan Page"
           />
+
+          {dto.pageForms.length > 0 && (
+            <Dropdown
+              options={dto.pageForms?.map((f) => f.name)}
+              value={dto.form}
+              onChange={(val) => setDto({ ...dto, form: val })}
+              placeholder="Fan Page Form"
+            />
+          )}
+
+          <Dropdown
+            options={["CRM", "GOOGLESheets"]}
+            value={dto.type}
+            onChange={(val) => setDto({ ...dto, type: val })}
+            placeholder="Тип шаблона"
+          />
+
           <Dropdown
             options={[]}
-            value={dto.sheet}
-            onChange={(val) => setDto({ ...dto, sheet: val })}
-            placeholder="sheet"
+            value={dto.ad}
+            onChange={(val) => setDto({ ...dto, ad: val })}
+            placeholder="Adset"
           />
         </div>
-      ) : (
-        ""
-      )}
 
-      <button onClick={subscribePage}>Подписать</button>
-    </>
+        {dto.type === "GOOGLESheets" && (
+          <div className="grid grid-cols-2 gap-4">
+            <Dropdown
+              options={[]}
+              value={dto.tableId}
+              onChange={(val) => setDto({ ...dto, tableId: val })}
+              placeholder="Table ID"
+            />
+            <Dropdown
+              options={[]}
+              value={dto.sheet}
+              onChange={(val) => setDto({ ...dto, sheet: val })}
+              placeholder="Sheet"
+            />
+            <Dropdown
+              options={[]}
+              value={dto.sheet}
+              onChange={(val) => setDto({ ...dto, sheet: val })}
+              placeholder="Sheet"
+            />
+            <Dropdown
+              options={[]}
+              value={dto.sheet}
+              onChange={(val) => setDto({ ...dto, sheet: val })}
+              placeholder="Sheet"
+            />
+            <Dropdown
+              options={[]}
+              value={dto.sheet}
+              onChange={(val) => setDto({ ...dto, sheet: val })}
+              placeholder="Sheet"
+            />
+            <Dropdown
+              options={[]}
+              value={dto.sheet}
+              onChange={(val) => setDto({ ...dto, sheet: val })}
+              placeholder="Sheet"
+            />
+          </div>
+        )}
+        <button
+          onClick={subscribePage}
+          type="button"
+          className="px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition"
+        >
+          Подписать
+        </button>
+      </form>
+
+      {/* Правая колонка: карточки шаблонов */}
+      <div className="w-full md:w-1/2 flex flex-col gap-4">
+        <h2 className="text-xl font-semibold">Шаблоны</h2>
+
+        <div className="grid gap-4">
+          {/* Карточка шаблона — в реальном коде замени на .map(...) */}
+          <div className="p-4 bg-white rounded-xl shadow border relative">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-lg font-medium">Название шаблона</h3>
+                <p className="text-sm text-gray-600">Тип: GOOGLESheets</p>
+                <p className="text-sm text-gray-600">Форма: "TestForm"</p>
+                <p className="text-sm text-gray-600">
+                  Таблица: abc123 / Лист: Sheet1
+                </p>
+              </div>
+              <button
+                onClick={unsubscribePage}
+                className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm"
+              >
+                Отписать
+              </button>
+            </div>
+          </div>
+          <div className="p-4 bg-white rounded-xl shadow border relative">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-lg font-medium">Название шаблона</h3>
+                <p className="text-sm text-gray-600">Тип: GOOGLESheets</p>
+                <p className="text-sm text-gray-600">Форма: "TestForm"</p>
+                <p className="text-sm text-gray-600">
+                  Таблица: abc123 / Лист: Sheet1
+                </p>
+              </div>
+              <button
+                onClick={unsubscribePage}
+                className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm"
+              >
+                Отписать
+              </button>
+            </div>
+          </div>
+          <div className="p-4 bg-white rounded-xl shadow border relative">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-lg font-medium">Название шаблона</h3>
+                <p className="text-sm text-gray-600">Тип: GOOGLESheets</p>
+                <p className="text-sm text-gray-600">Форма: "TestForm"</p>
+                <p className="text-sm text-gray-600">
+                  Таблица: abc123 / Лист: Sheet1
+                </p>
+              </div>
+              <button
+                onClick={unsubscribePage}
+                className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm"
+              >
+                Отписать
+              </button>
+            </div>
+          </div>
+          <div className="p-4 bg-white rounded-xl shadow border relative">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-lg font-medium">Название шаблона</h3>
+                <p className="text-sm text-gray-600">Тип: GOOGLESheets</p>
+                <p className="text-sm text-gray-600">Форма: "TestForm"</p>
+                <p className="text-sm text-gray-600">
+                  Таблица: abc123 / Лист: Sheet1
+                </p>
+              </div>
+              <button
+                onClick={unsubscribePage}
+                className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm"
+              >
+                Отписать
+              </button>
+            </div>
+          </div>
+          <div className="p-4 bg-white rounded-xl shadow border relative">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-lg font-medium">Название шаблона</h3>
+                <p className="text-sm text-gray-600">Тип: GOOGLESheets</p>
+                <p className="text-sm text-gray-600">Форма: "TestForm"</p>
+                <p className="text-sm text-gray-600">
+                  Таблица: abc123 / Лист: Sheet1
+                </p>
+              </div>
+              <button
+                onClick={unsubscribePage}
+                className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm"
+              >
+                Отписать
+              </button>
+            </div>
+          </div>
+          <div className="p-4 bg-white rounded-xl shadow border relative">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-lg font-medium">Название шаблона</h3>
+                <p className="text-sm text-gray-600">Тип: GOOGLESheets</p>
+                <p className="text-sm text-gray-600">Форма: "TestForm"</p>
+                <p className="text-sm text-gray-600">
+                  Таблица: abc123 / Лист: Sheet1
+                </p>
+              </div>
+              <button
+                onClick={unsubscribePage}
+                className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm"
+              >
+                Отписать
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

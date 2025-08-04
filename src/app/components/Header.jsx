@@ -2,7 +2,7 @@ const Header = () => {
   const appId = process.env.NEXT_PUBLIC_APP_ID;
   const redirectUri = `${process.env.NEXT_PUBLIC_SITE_LINK}/callback`;
   const scope =
-    "pages_show_list,leads_retrieval,public_profile,email,pages_manage_ads,ads_read,pages_show_list";
+    "pages_show_list,leads_retrieval,public_profile,email,pages_manage_ads,ads_read";
   const responseType = "token";
 
   const fbAuthUrl = `https://www.facebook.com/v19.0/dialog/oauth?client_id=${appId}&redirect_uri=${encodeURIComponent(

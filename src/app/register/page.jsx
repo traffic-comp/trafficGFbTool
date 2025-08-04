@@ -78,9 +78,6 @@ const Register = () => {
           <a href="/" className="cursor-pointer">
             Войти
           </a>
-          <a href="/main/tt" className="cursor-pointer">
-            TikTok
-          </a>
         </div>
       </div>
     </div>

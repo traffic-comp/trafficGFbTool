@@ -10,7 +10,7 @@ const ResultLeadsPanel = () => {
   const { isOpen, setIsOpen } = useStore();
 
   const { addMessage } = useErrorStore();
-
+  console.log(result)
   const send = () => {
     if (!result.length) {
       addMessage("error", "Ошибка при отправке");
@@ -63,7 +63,6 @@ const ResultLeadsPanel = () => {
                   field={"full_name"}
                   data={lead.full_name}
                 />
-                {/* <span className={className}>{lead.full_name}</span> */}
                 <EditableItem
                   className={className}
                   id={lead.id}
@@ -79,8 +78,8 @@ const ResultLeadsPanel = () => {
                 <EditableItem
                   className={className}
                   id={lead.id}
-                  field={"answers"}
-                  data={lead.answers}
+                  field={"description"}
+                  data={lead.description}
                 />
                 <EditableItem
                   className={className}

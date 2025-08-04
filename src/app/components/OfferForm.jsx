@@ -11,7 +11,7 @@ import Dropdown from "./Dropdown";
 
 const OfferForm = ({ source }) => {
   const [offers, setOffers] = useState([]);
-  const { leads, setResult } = useFBStore();
+  const { leads, setResult, result } = useFBStore();
   const { setIsOpen } = useStore();
 
   const [isoCode] = useState("");
@@ -49,11 +49,12 @@ const OfferForm = ({ source }) => {
       }
       return addMessage("warning", "Сперва заполни форму");
     } else {
-      if (leads  && offer && aff && trafficSource) {
+      if (leads && offer && aff && trafficSource) {
         const leadData = ttLeads(leads, offer, aff, trafficSource);
 
         if (leadData) {
           setResult(ttLeads(leads, offer, aff, trafficSource));
+            console.log(result)
           setIsOpen(true);
           return addMessage("success", "Данные дополнены!");
         }
@@ -75,7 +76,6 @@ const OfferForm = ({ source }) => {
           onChange={(val) => setOffer(val)}
           placeholder="Offer"
         />
-
 
         <Dropdown
           options={Array.from({ length: 100 }, (_, i) => (i + 1).toString())}

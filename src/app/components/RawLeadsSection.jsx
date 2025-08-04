@@ -62,8 +62,8 @@ const RawLeadsSection = ({
               <EditableItem
                 className={className}
                 id={lead.id}
-                field={"answers"}
-                data={lead.answers}
+                field={"description"}
+                data={lead.description}
               />
             </>
           )}

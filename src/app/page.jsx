@@ -72,9 +72,6 @@ const Auth = () => {
           />
         </form>
         <div className="flex gap-2 mt-[10px]">
-          <a href="/main/tt" className="cursor-pointer">
-            TikTok
-          </a>
           <a href="/register" className="cursor-pointer">
             Регистрация
           </a>
