@@ -14,7 +14,6 @@ const OfferForm = ({ source }) => {
   const { leads, setResult, result } = useFBStore();
   const { setIsOpen } = useStore();
 
-  const [isoCode] = useState("");
   const [offer, setOffer] = useState("");
   const [aff, setAff] = useState("");
   const [trafficSource, setTrafficSource] = useState("");

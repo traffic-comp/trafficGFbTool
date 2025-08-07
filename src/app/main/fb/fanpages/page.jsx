@@ -14,7 +14,6 @@ const FanpagesPage = () => {
   const fbPages = async () => {
     const fb_access_token = window.localStorage.getItem("fb_access_token");
     const pagesList = await getPages(fb_access_token);
-
     if (pagesList) {
       setPages(pagesList);
       setLoading(false);

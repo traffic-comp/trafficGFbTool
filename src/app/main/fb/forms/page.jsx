@@ -57,7 +57,7 @@ const FormsPage = () => {
           ) || "",
         phone: phone || "",
         geo: isoCode.toUpperCase(),
-        answers: extractAnswers(lead), // строка
+        description: extractAnswers(lead), // строка
         id: lead.id,
       };
     });

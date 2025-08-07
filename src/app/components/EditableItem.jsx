@@ -1,18 +1,14 @@
 "use client";
 
-import useFBStore from "@/store/useFbStore";
 import { useEffect, useRef, useState } from "react";
 
-const EditableItem = ({ className, data, id, field }) => {
-  const { updateLeadData, leads } = useFBStore();
-
+const EditableItem = ({ className, data, id, field, updateLeadData }) => {
   const [isShovedInput, setIsShovedInput] = useState(false);
   const inputRef = useRef(null);
 
   const updateLead = (e) => {
     if (e.key === "Enter") {
       updateLeadData(id, e.target.value, field);
-      console.log(leads, "editable");
       setIsShovedInput(false);
     }
   };

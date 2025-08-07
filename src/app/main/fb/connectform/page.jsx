@@ -1,13 +1,17 @@
 "use client";
 
 import Dropdown from "@/app/components/Dropdown";
+import TemplateCard from "@/app/components/TemplateCard";
 import { getLeadForms, getPages, subscribeLeadForm } from "@/fetch/fb";
+import { getOffers } from "@/fetch/kt";
+import { getTemplates } from "@/fetch/template";
 import useErrorStore from "@/store/useErrorStore";
 import { useEffect, useState } from "react";
 
 const ConnectForm = () => {
   const { addMessage } = useErrorStore();
 
+  const [templates, setTemplates] = useState([]);
   const [dto, setDto] = useState({
     pages: [],
     pageForms: [],
@@ -17,15 +21,39 @@ const ConnectForm = () => {
     tableId: "",
     sheet: "",
     ad: "",
+    pageId: "",
+    user_id: 0,
+    offers: [],
+    offer: "",
   });
 
   useEffect(() => {
     const fetchPages = async () => {
       const fb_access_token = window.localStorage.getItem("fb_access_token");
       const data = await getPages(fb_access_token);
-      console.log(data);
-      setDto({ ...dto, pages: data });
+      setDto((prev) => ({ ...prev, pages: data }));
     };
+
+    const fetchGetTemplates = async () => {
+      const userId = window.localStorage.getItem("userId");
+      const temp = await getTemplates(userId);
+      if (temp.data) {
+        setTemplates(temp.data);
+      }
+    };
+
+    const ktOffers = async () => {
+      const offers = await getOffers();
+
+      if (offers) {
+        return setDto((prev) => ({ ...prev, offers }));
+      }
+
+      addMessage("error", "Ошибка получении офферов с кт");
+    };
+
+    ktOffers();
+    fetchGetTemplates();
     fetchPages();
   }, []);
 
@@ -42,14 +70,14 @@ const ConnectForm = () => {
         return addMessage("error", `Для этой страницы нет доступных форм!`);
       }
 
-      setDto({ ...dto, pageForms: forms });
+      setDto({ ...dto, pageForms: forms, pageId: id });
     };
 
     fetchForms();
   }, [dto.page]);
 
   const subscribePage = async () => {
-    const formId = dto.pageForms.find((form) => form.name === dto.form && form);
+    const form = dto.pageForms.find((form) => form.name === dto.form && form);
     const { access_token, id } = dto.pages.find((p) => p.name === dto.page);
 
     const { success } = await subscribeLeadForm(id, access_token);
@@ -61,11 +89,17 @@ const ConnectForm = () => {
     const userId = localStorage.getItem("userId");
 
     const templateLeadForm = {
-      formId: formId.id,
+      name: form.name,
+      formId: form.id,
       type: dto.type,
       tableId: dto.tableId,
       sheet: dto.sheet,
       adset: dto.ad,
+      pageId: dto.pageId,
+      user_id: dto.user_id,
+      landing: dto.offer,
+      landing_name: dto.offer,
+      source: dto.source,
       userId,
     };
 
@@ -84,20 +118,8 @@ const ConnectForm = () => {
     console.log(d);
   };
 
-  const unsubscribePage = async () => {
-    const appAccessToken =
-      "EAAhpx2PEo64BPOOZCNnva8J5iUtnZCm7XM3M7jnm9YXhCN0qCY1zaTwNL4dXRQHoMfV6TAA4e8x808CtbifYrTeYJgxGzpFhwIBEYpaiginsHWHdm9Vgl4G1IK1jqIK3sKVZBErSNKAmxZCCa4gENaaiGzYdtKXiPKHpZAKrHSKqyv13ZCOj5ZBjFv1qfqDmnIfjnG6"; // замени на свои
-
-    const res = await fetch(
-      `https://graph.facebook.com/v19.0/682430928288511/subscribed_apps?access_token=${appAccessToken}`
-    );
-
-    const data = await res.json();
-    console.log("🔌 Отписка от вебхуков:", data);
-  };
-
   return (
-    <div className="flex flex-col md:flex-row gap-6 p-6 bg-gray-50 rounded-2xl shadow-inner">
+    <div className="flex flex-col md:flex-row gap-6 p-6 bg-gray-50 rounded-2xl shadow-inner h-[100%] overflow-hidden">
       {/* Левая колонка: форма */}
       <form className="w-full md:w-1/2 bg-white rounded-2xl p-6 shadow-xl flex flex-col gap-6 border border-gray-200">
         <div className="flex items-center justify-between">
@@ -152,29 +174,29 @@ const ConnectForm = () => {
               onChange={(val) => setDto({ ...dto, sheet: val })}
               placeholder="Sheet"
             />
+          </div>
+        )}
+        {dto.type === "CRM" && (
+          <div className="grid grid-cols-2 gap-4">
             <Dropdown
-              options={[]}
+              options={["FB", "Google", "TikTok"]}
               value={dto.sheet}
               onChange={(val) => setDto({ ...dto, sheet: val })}
-              placeholder="Sheet"
+              placeholder="source"
             />
             <Dropdown
-              options={[]}
-              value={dto.sheet}
-              onChange={(val) => setDto({ ...dto, sheet: val })}
-              placeholder="Sheet"
+              options={Array.from({ length: 100 }, (_, i) =>
+                (i + 1).toString()
+              )}
+              value={dto.user_id}
+              onChange={(val) => setDto({ ...dto, user_id: val })}
+              placeholder="Aff ID"
             />
             <Dropdown
-              options={[]}
-              value={dto.sheet}
-              onChange={(val) => setDto({ ...dto, sheet: val })}
-              placeholder="Sheet"
-            />
-            <Dropdown
-              options={[]}
-              value={dto.sheet}
-              onChange={(val) => setDto({ ...dto, sheet: val })}
-              placeholder="Sheet"
+              options={dto.offers.map((o) => o.name)}
+              value={dto.offer}
+              onChange={(val) => setDto({ ...dto, offer: val })}
+              placeholder="landing/landing_name"
             />
           </div>
         )}
@@ -187,120 +209,15 @@ const ConnectForm = () => {
         </button>
       </form>
 
-      {/* Правая колонка: карточки шаблонов */}
-      <div className="w-full md:w-1/2 flex flex-col gap-4">
+      <div className="w-full md:w-1/2 flex flex-col gap-4 overflow-auto">
         <h2 className="text-xl font-semibold">Шаблоны</h2>
 
-        <div className="grid gap-4">
-          {/* Карточка шаблона — в реальном коде замени на .map(...) */}
-          <div className="p-4 bg-white rounded-xl shadow border relative">
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="text-lg font-medium">Название шаблона</h3>
-                <p className="text-sm text-gray-600">Тип: GOOGLESheets</p>
-                <p className="text-sm text-gray-600">Форма: "TestForm"</p>
-                <p className="text-sm text-gray-600">
-                  Таблица: abc123 / Лист: Sheet1
-                </p>
-              </div>
-              <button
-                onClick={unsubscribePage}
-                className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm"
-              >
-                Отписать
-              </button>
-            </div>
-          </div>
-          <div className="p-4 bg-white rounded-xl shadow border relative">
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="text-lg font-medium">Название шаблона</h3>
-                <p className="text-sm text-gray-600">Тип: GOOGLESheets</p>
-                <p className="text-sm text-gray-600">Форма: "TestForm"</p>
-                <p className="text-sm text-gray-600">
-                  Таблица: abc123 / Лист: Sheet1
-                </p>
-              </div>
-              <button
-                onClick={unsubscribePage}
-                className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm"
-              >
-                Отписать
-              </button>
-            </div>
-          </div>
-          <div className="p-4 bg-white rounded-xl shadow border relative">
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="text-lg font-medium">Название шаблона</h3>
-                <p className="text-sm text-gray-600">Тип: GOOGLESheets</p>
-                <p className="text-sm text-gray-600">Форма: "TestForm"</p>
-                <p className="text-sm text-gray-600">
-                  Таблица: abc123 / Лист: Sheet1
-                </p>
-              </div>
-              <button
-                onClick={unsubscribePage}
-                className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm"
-              >
-                Отписать
-              </button>
-            </div>
-          </div>
-          <div className="p-4 bg-white rounded-xl shadow border relative">
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="text-lg font-medium">Название шаблона</h3>
-                <p className="text-sm text-gray-600">Тип: GOOGLESheets</p>
-                <p className="text-sm text-gray-600">Форма: "TestForm"</p>
-                <p className="text-sm text-gray-600">
-                  Таблица: abc123 / Лист: Sheet1
-                </p>
-              </div>
-              <button
-                onClick={unsubscribePage}
-                className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm"
-              >
-                Отписать
-              </button>
-            </div>
-          </div>
-          <div className="p-4 bg-white rounded-xl shadow border relative">
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="text-lg font-medium">Название шаблона</h3>
-                <p className="text-sm text-gray-600">Тип: GOOGLESheets</p>
-                <p className="text-sm text-gray-600">Форма: "TestForm"</p>
-                <p className="text-sm text-gray-600">
-                  Таблица: abc123 / Лист: Sheet1
-                </p>
-              </div>
-              <button
-                onClick={unsubscribePage}
-                className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm"
-              >
-                Отписать
-              </button>
-            </div>
-          </div>
-          <div className="p-4 bg-white rounded-xl shadow border relative">
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="text-lg font-medium">Название шаблона</h3>
-                <p className="text-sm text-gray-600">Тип: GOOGLESheets</p>
-                <p className="text-sm text-gray-600">Форма: "TestForm"</p>
-                <p className="text-sm text-gray-600">
-                  Таблица: abc123 / Лист: Sheet1
-                </p>
-              </div>
-              <button
-                onClick={unsubscribePage}
-                className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm"
-              >
-                Отписать
-              </button>
-            </div>
-          </div>
+        <div className="grid gap-4 p-2">
+          {templates.length
+            ? templates.map((template) => (
+                <TemplateCard key={template.formId} template={template} />
+              ))
+            : ""}
         </div>
       </div>
     </div>

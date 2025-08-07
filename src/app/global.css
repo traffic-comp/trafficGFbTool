@@ -1,14 +1,5 @@
 @import "tailwindcss";
 
-@layer components {
-  .rawLeadsRow {
-    @apply grid px-4 py-3 border-b border-[#eee] box-border;
-  }
-
-  .rawLeadsRow span {
-    @apply overflow-hidden text-ellipsis whitespace-nowrap;
-  }
-}
 * {
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
 }
@@ -18,8 +9,17 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden; /* если хочешь полностью контролировать скрол */
+  overflow: hidden; 
+  scrollbar-width: none;
+  -ms-overflow-style: none; 
+  overflow: hidden;
 }
+
+*::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none; 
+}
+
 li {
   list-style: none;
 }
