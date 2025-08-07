@@ -25,6 +25,7 @@ const ConnectForm = () => {
     user_id: 0,
     offers: [],
     offer: "",
+    source: "",
   });
 
   useEffect(() => {
@@ -180,8 +181,8 @@ const ConnectForm = () => {
           <div className="grid grid-cols-2 gap-4">
             <Dropdown
               options={["FB", "Google", "TikTok"]}
-              value={dto.sheet}
-              onChange={(val) => setDto({ ...dto, sheet: val })}
+              value={dto.source}
+              onChange={(val) => setDto({ ...dto, source: val })}
               placeholder="source"
             />
             <Dropdown

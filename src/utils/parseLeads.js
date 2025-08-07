@@ -10,6 +10,7 @@ export const FIELD_KEYWORDS = {
     "nombre",
     "nome",
     "vollständiger_name",
+    "nome_e_cognome",
     "नाम",
     "اسم",
     "שם",
@@ -20,6 +21,7 @@ export const FIELD_KEYWORDS = {
     "mobile",
     "מספר טלפון",
     "מספר_טלפון",
+    "numero_di_telefono",
     "telefono",
     "telefonnummer",
     "телефон",
@@ -87,7 +89,6 @@ export const fbLeads = (leads, offer, aff, trafficSource) => {
       id: lead.id,
     };
   });
-  console.log(leadData, "leadData");
   return leadData;
 };
 
