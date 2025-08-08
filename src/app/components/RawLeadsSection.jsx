@@ -12,9 +12,8 @@ const RawLeadsSection = ({
   totalPages,
   source,
 }) => {
-  const { leads } = useFBStore();
+  const { leads,updateLeadData } = useFBStore();
 
-  console.log(leads)
   return (
     <>
       {leads.length > 0 && (
@@ -40,30 +39,35 @@ const RawLeadsSection = ({
                 id={lead.id}
                 field={"full_name"}
                 data={lead.full_name}
+                  updatedLeads={updateLeadData}
               />
               <EditableItem
                 className={className}
                 id={lead.id}
                 field={"phone"}
                 data={lead.phone}
+                updatedLeads={updateLeadData}
               />
               <EditableItem
                 className={className}
                 id={lead.id}
                 field={"email"}
                 data={lead.email}
+                updatedLeads={updateLeadData}
               />
               <EditableItem
                 className={className}
                 id={lead.id}
                 field={"geo"}
                 data={lead.geo}
+                updatedLeads={updateLeadData}
               />
               <EditableItem
                 className={className}
                 id={lead.id}
                 field={"description"}
                 data={lead.description}
+                updatedLeads={updateLeadData}
               />
             </>
           )}

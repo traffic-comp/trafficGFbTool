@@ -50,7 +50,7 @@ const FileUpload = () => {
               alt="upload icon"
               className="mb-2 w-[37px] h-[auto]"
             />
-            <p className="text-white  text-[14px] text-[#515151]">
+            <p className="text-[14px] text-[#515151]">
               Upload file
             </p>
           </div>

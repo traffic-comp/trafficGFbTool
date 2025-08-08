@@ -2,13 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const EditableItem = ({ className, data, id, field, updateLeadData }) => {
+const EditableItem = ({ className, data, id, field, updatedLeads }) => {
+
   const [isShovedInput, setIsShovedInput] = useState(false);
   const inputRef = useRef(null);
 
   const updateLead = (e) => {
     if (e.key === "Enter") {
-      updateLeadData(id, e.target.value, field);
+      updatedLeads(id, e.target.value, field);
       setIsShovedInput(false);
     }
   };
