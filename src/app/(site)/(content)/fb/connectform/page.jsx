@@ -6,6 +6,7 @@ import { getLeadForms, getPages, subscribeLeadForm } from "@/fetch/fb";
 import { getOffers } from "@/fetch/kt";
 import { getTemplates } from "@/fetch/template";
 import useErrorStore from "@/store/useErrorStore";
+import { Cookies } from "@/utils/cookies";
 import { useEffect, useState } from "react";
 
 const ConnectForm = () => {
@@ -30,13 +31,13 @@ const ConnectForm = () => {
 
   useEffect(() => {
     const fetchPages = async () => {
-      const fb_access_token = window.localStorage.getItem("fb_access_token");
+      const fb_access_token = Cookies.get("fb_access_token");
       const data = await getPages(fb_access_token);
       setDto((prev) => ({ ...prev, pages: data }));
     };
 
     const fetchGetTemplates = async () => {
-      const userId = window.localStorage.getItem("userId");
+      const userId = Cookies.get("userId");
       const temp = await getTemplates(userId);
       if (temp.data) {
         setTemplates(temp.data);
@@ -87,7 +88,8 @@ const ConnectForm = () => {
     } else {
       addMessage("error", `Форма ${id} не подписана!`);
     }
-    const userId = localStorage.getItem("userId");
+    
+    const userId = Cookies.get("userId")
 
     const templateLeadForm = {
       name: form.name,

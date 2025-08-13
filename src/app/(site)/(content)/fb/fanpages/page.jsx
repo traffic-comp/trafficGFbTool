@@ -5,6 +5,7 @@ import FanpagesList from "@/app/components/FanpagesList";
 import useFBStore from "@/store/useFbStore";
 import { useRouter } from "next/navigation";
 import Loader from "@/app/components/ui/Loader";
+import { Cookies } from "@/utils/cookies";
 
 const FanpagesPage = () => {
   const { setPages, setForms, setActiveForm } = useFBStore();
@@ -12,7 +13,7 @@ const FanpagesPage = () => {
   const router = useRouter();
 
   const fbPages = async () => {
-    const fb_access_token = window.localStorage.getItem("fb_access_token");
+    const fb_access_token = Cookies.get("fb_access_token");
     const pagesList = await getPages(fb_access_token);
     if (pagesList) {
       setPages(pagesList);
@@ -24,7 +25,7 @@ const FanpagesPage = () => {
     const forms = await getLeadForms(pageId, pageAccessToken);
     setActiveForm(pageAccessToken);
     setForms(forms);
-    router.push("/main/fb/forms");
+    router.push("/fb/forms");
   };
 
   useEffect(() => {

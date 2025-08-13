@@ -1,6 +1,5 @@
 "use client";
 
-import { getPages } from "@/fetch/fb";
 import { deleteTemplate, updateTemplate } from "@/fetch/template";
 import { useState } from "react";
 

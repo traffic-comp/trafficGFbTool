@@ -1,6 +1,7 @@
 "use client";
 import { login } from "@/fetch/user";
 import useErrorStore from "@/store/useErrorStore";
+import { Cookies } from "@/utils/cookies";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -22,8 +23,11 @@ const Auth = () => {
 
     if (data.type === "success") {
       addMessage("success", data.message);
-      localStorage.setItem("authToken", data.token);
-      router.push("/main/fb/fanpages");
+      console.log(data);
+      Cookies.set("authToken", data.token);
+      Cookies.set("userId", data.userId);
+
+      router.push("/fb/fanpages");
 
       return setCreds({
         login: "",

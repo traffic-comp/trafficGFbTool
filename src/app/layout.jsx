@@ -1,4 +1,3 @@
-// app/layout.tsx или app/layout.jsx
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import Head from "./helpers/Head";
