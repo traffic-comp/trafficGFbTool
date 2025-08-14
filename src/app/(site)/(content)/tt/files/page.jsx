@@ -33,7 +33,7 @@ const Files = () => {
     const { data } = await res.json();
 
     addMessage("success", "Данные успешно загружены");
-    router.push("/main/tt/uploaded");
+    router.push("/tt/uploaded");
     return setLeads(data);
   };
   return (
