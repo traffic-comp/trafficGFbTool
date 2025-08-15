@@ -12,7 +12,7 @@ const RawLeadsSection = ({
   totalPages,
   source,
 }) => {
-  const { leads,updateLeadData } = useFBStore();
+  const { leads, updateLeadData } = useFBStore();
 
   return (
     <>
@@ -34,41 +34,11 @@ const RawLeadsSection = ({
           data={leads}
           renderRow={(lead, className) => (
             <>
-              <EditableItem
-                className={className}
-                id={lead.id}
-                field={"full_name"}
-                data={lead.full_name}
-                  updatedLeads={updateLeadData}
-              />
-              <EditableItem
-                className={className}
-                id={lead.id}
-                field={"phone"}
-                data={lead.phone}
-                updatedLeads={updateLeadData}
-              />
-              <EditableItem
-                className={className}
-                id={lead.id}
-                field={"email"}
-                data={lead.email}
-                updatedLeads={updateLeadData}
-              />
-              <EditableItem
-                className={className}
-                id={lead.id}
-                field={"geo"}
-                data={lead.geo}
-                updatedLeads={updateLeadData}
-              />
-              <EditableItem
-                className={className}
-                id={lead.id}
-                field={"description"}
-                data={lead.description}
-                updatedLeads={updateLeadData}
-              />
+              <span className={className}>{lead.full_name}</span>
+              <span className={className}>{lead.phone}</span>
+              <span className={className}>{lead.email}</span>
+              <span className={className}>{lead.geo}</span>
+              <span className={className}>{lead.description}</span>
             </>
           )}
         />
