@@ -33,6 +33,7 @@ export const FIELD_KEYWORDS = {
   email: [
     "email",
     "эл_адрес",
+    "эл._адрес",
     "e-mail",
     "correo",
     'דוא"ל',
