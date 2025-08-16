@@ -4,21 +4,46 @@ import useStore from "@/store/useStore";
 import { sendToCrm } from "@/fetch/crm";
 import useErrorStore from "@/store/useErrorStore";
 import EditableItem from "./EditableItem";
+import { useState } from "react";
 
 const ResultLeadsPanel = () => {
-  const { result, setResult, updateLeadData } = useFBStore();
+  const { result, setResult, updateLeadData, deleteLead } = useFBStore();
   const { isOpen, setIsOpen } = useStore();
 
   const { addMessage } = useErrorStore();
-  console.log(result);
+
+  const [checked, setChecked] = useState([]);
+
   const send = () => {
     if (!result.length) {
       addMessage("error", "Ошибка при отправке");
       return;
     }
 
-    sendToCrm(result);
+    sendToCrm(
+      result.map((lead) => ({
+        ...lead,
+        description: lead.description ? lead.description : "",
+      }))
+    );
     setResult([]);
+  };
+
+  const changeCheckbox = (id) => {
+    if (checked.includes(id)) {
+      setChecked(checked.filter((i) => i !== id));
+      return;
+    }
+
+    setChecked(() => [...checked, id]);
+  };
+
+  const deleteLeads = () => {
+    if (checked.length) {
+      deleteLead(checked);
+    }
+
+    setChecked([]);
   };
 
   return (
@@ -52,6 +77,7 @@ const ResultLeadsPanel = () => {
               "User_id",
               "Landing/Landing name",
               "IP",
+              "",
             ]}
             data={result}
             isResult={true}
@@ -121,12 +147,17 @@ const ResultLeadsPanel = () => {
                   data={lead.ip}
                   updatedLeads={updateLeadData}
                 />
+                <input
+                  type="checkbox"
+                  checked={checked.includes(lead.id)}
+                  onChange={() => changeCheckbox(lead.id)}
+                />
               </>
             )}
           />
 
           <button
-            className="absolute z-index-5 left-[-85px] top-[41px] py-[9px] px-[11px] text-white bg-[var(--color-main-blue)] border-[1px] border-[var(--color-main-blue)] rotate-270  cursor-pointer"
+            className="absolute z-index-5 left-[-85px] top-[41px] py-[9px] px-[11px] text-white bg-[var(--color-main-blue)] border-[1px] border-[var(--color-main-blue)] rotate-270 origin-center  cursor-pointer"
             onClick={() => setIsOpen(!isOpen)}
           >
             Ready to Load
@@ -134,10 +165,18 @@ const ResultLeadsPanel = () => {
 
           {isOpen && (
             <button
-              className={`absolute z-index-5 left-[-81px] top-[170px] py-[9px] px-[11px] bg-white text-black border-[1px] border-black rotate-270  cursor-pointer`}
+              className={`absolute z-index-5 left-[-81px] top-[170px] py-[9px] px-[11px] bg-white text-black border-[1px] border-white rotate-270 origin-center cursor-pointer`}
               onClick={() => send()}
             >
               Send to CRM
+            </button>
+          )}
+          {checked.length && (
+            <button
+              className={`absolute z-index-5 left-[-57px] top-[270px] py-[9px] px-[11px] bg-[var(--color-red)] text-white border-[1px] border-[var(--color-red)] rotate-270 origin-center cursor-pointer`}
+              onClick={deleteLeads}
+            >
+              Delete
             </button>
           )}
         </div>

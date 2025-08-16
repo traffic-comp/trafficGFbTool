@@ -32,6 +32,7 @@ li {
   --color-white: #fff;
   --color-main-blue: #0b69b7;
   --bg-main: #f8f9fa;
+  --color-red:#da4848;
   --animation-loader: loader;
 }
 body {

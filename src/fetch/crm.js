@@ -16,8 +16,6 @@ export const sendToCrm = async (dto) => {
         body: formBody,
       });
 
-      console.log(res);
-
       if (res.status === 422) {
         addMessage("error", "Ошибка при отправке лида");
       }

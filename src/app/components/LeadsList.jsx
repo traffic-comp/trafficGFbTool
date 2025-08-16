@@ -9,25 +9,12 @@ const LeadsList = ({
   containerStyle = {},
   isResult,
 }) => {
-  const [activeMenu, setActiveMenu] = useState(null);
-  const { deleteLead } = useFBStore();
   const columnCount = headers.length;
 
   const gridStyle = containerStyle.gridTemplateColumns
     ? containerStyle
     : { gridTemplateColumns: `repeat(${columnCount}, 1fr)` };
 
-  const showMenu = (id) => {
-    setActiveMenu(id);
-  };
-
-  useEffect(() => {
-    setActiveMenu(null);
-  }, [data]);
-
-  const removeLead = (phone) => {
-    deleteLead(phone);
-  };
 
   return (
     <div className="leadList flex flex-col h-[calc(100vh-40px-24px)] overflow-hidden">
@@ -40,12 +27,12 @@ const LeadsList = ({
         ))}
       </div>
 
-      <div className="flex-1 overflow-y-auto overflow-x-hidden">
+      <div className="flex-1 overflow-x-hidden overflow-y-auto">
         {data?.map((item, index) => (
           <div
             className="relative"
             key={index}
-            onClick={isResult ? () => showMenu(index) : () => {}}
+            // onClick={isResult ? () => showMenu(index) : () => {}}
           >
             <div
               className="grid px-[12px] py-[16px] cursor-pointer hover:bg-[ghostwhite]"
@@ -56,13 +43,13 @@ const LeadsList = ({
                 "overflow-hidden text-ellipsis whitespace-nowrap"
               )}
             </div>
-            {isResult && activeMenu === index && activeMenu !== null ? (
+            {/* {isResult && activeMenu === index && activeMenu !== null ? (
               <div className="absolute z-2 right-[15px] bottom-[-30px] p-[10px] rounded-[10px] bg-white shadow-[0px_4px_6px_1px_#00030533] cursor-pointer hover:bg-[ghostwhite]">
                 <span onClick={() => removeLead(item.phone)}>Удалить</span>
               </div>
             ) : (
               ""
-            )}
+            )} */}
           </div>
         ))}
       </div>
