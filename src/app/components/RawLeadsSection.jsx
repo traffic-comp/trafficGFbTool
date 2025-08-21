@@ -12,7 +12,7 @@ const RawLeadsSection = ({
   totalPages,
   source,
 }) => {
-  const { leads, updateLeadData } = useFBStore();
+  const { leads } = useFBStore();
 
   return (
     <>

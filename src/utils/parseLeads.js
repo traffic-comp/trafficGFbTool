@@ -83,7 +83,7 @@ export const fbLeads = (leads, offer, aff, trafficSource) => {
       full_name: lead.full_name,
       phone,
       email: lead.email,
-      description: lead.answers,
+      description: lead.description,
       country: isoCode,
       landing: offer,
       landing_name: offer,
