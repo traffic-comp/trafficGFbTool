@@ -11,6 +11,7 @@ export const FIELD_KEYWORDS = {
     "nombre",
     "nome",
     "vollständiger_name",
+    "vollständiger_name",
     "nome_e_cognome",
     "नाम",
     "اسم",
@@ -21,6 +22,7 @@ export const FIELD_KEYWORDS = {
     "номер_телефона",
     "tel",
     "mobile",
+    "telefonnummer",
     "מספר טלפון",
     "מספר_טלפון",
     "numero_di_telefono",
@@ -32,6 +34,7 @@ export const FIELD_KEYWORDS = {
   ],
   email: [
     "email",
+    "e-mail-adresse",
     "эл_адрес",
     "эл._адрес",
     "e-mail",
