@@ -79,25 +79,51 @@ export function getFieldValueByKeywords(lead, keywords) {
 
 export const fbLeads = (leads, offer, aff, trafficSource) => {
   console.log(leads, "fbleads");
+
   const leadData = leads.map((lead) => {
-    const phone = lead.phone;
-    const isoCode = getCountryISO(phone, phonesData);
-    return {
-      full_name: lead.full_name,
-      phone,
-      email: lead.email,
-      description: lead.description,
-      country: isoCode,
-      landing: offer,
-      landing_name: offer,
-      ip: getRandomIpByCountry(isoCode),
-      user_id: aff,
-      source: trafficSource,
-      id: lead.id,
-    };
+    try {
+      const phone = lead.phone || "";
+      const isoCode = phone ? getCountryISO(phone, phonesData) : "";
+
+      return {
+        id: lead.id || "",
+        full_name: lead.full_name || "",
+        phone,
+        email: lead.email || "",
+        description: lead.description || "",
+        country: isoCode || "",
+        landing: offer || "",
+        landing_name: offer || "",
+        ip: getRandomIpByCountry(isoCode || "IL"),
+        user_id: aff || "",
+        source: trafficSource || "",
+        created_time: lead.created_time || "", 
+        raw: lead,
+      };
+    } catch (err) {
+      console.error("Ошибка при обработке лида (fbLeads):", err);
+
+      return {
+        id: lead?.id || "",
+        full_name: "",
+        phone: "",
+        email: "",
+        description: "",
+        country: "",
+        landing: offer || "",
+        landing_name: offer || "",
+        ip: getRandomIpByCountry("IL"),
+        user_id: aff || "",
+        source: trafficSource || "",
+        created_time: lead?.created_time || "",
+        raw: lead || {},
+      };
+    }
   });
+
   return leadData;
 };
+
 
 export const ttLeads = (leads, offer, aff, trafficSource) => {
   const leadData = leads.map((lead) => {

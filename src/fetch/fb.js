@@ -58,19 +58,30 @@ export const getPagesWithTokens = async () => {
 
 export const getLeadsByForm = async (formId, access_token) => {
   try {
-    const res = await fetch(
-      `https://graph.facebook.com/v19.0/${formId}/leads?access_token=${access_token}&fields=field_data,created_time`
-    );
-    const { data } = await res.json();
+    let url = `https://graph.facebook.com/v19.0/${formId}/leads?access_token=${access_token}&fields=field_data,created_time`;
+    let allLeads = [];
 
-    if (res.status === 400) {
-      addMessage("error", "Для получения лидов из форму, нужно подключить fb");
-      return;
+    while (url) {
+      const res = await fetch(url);
+      const { data, paging } = await res.json();
+
+      if (res.status === 400) {
+        addMessage(
+          "error",
+          "Для получения лидов из формы, нужно подключить fb"
+        );
+        return [];
+      }
+
+      if (data && data.length > 0) {
+        allLeads = allLeads.concat(data);
+      }
+
+      url = paging?.next || null;
     }
-
-    return data;
+    return allLeads;
   } catch (error) {
-    throw new Error(`Ошибка при получении лидов для формы ${formId}:`, error);
+    throw new Error(`Ошибка при получении лидов для формы ${formId}: ${error}`);
   }
 };
 

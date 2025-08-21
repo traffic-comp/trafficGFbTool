@@ -33,7 +33,6 @@ const FormsPage = () => {
 
   const goToPage = (page) => {
     if (page >= 1 && page <= totalPages) {
-      console.log(currentLeads, "currentLeads");
       setCurrentPage(page);
     }
   };
@@ -41,28 +40,43 @@ const FormsPage = () => {
   const showLead = async (formId) => {
     const rawLeads = await getLeadsByForm(formId, activeForm);
     setActiveFormId(formId);
-
     const leads = rawLeads.map((lead) => {
-      const phone = getFieldValueByKeywords(lead, FIELD_KEYWORDS.phone).replace(
-        /\s+/g,
-        " "
-      );
-      const isoCode = getCountryISO(phone, phonesData);
-      return {
-        full_name: getFieldValueByKeywords(lead, FIELD_KEYWORDS.full_name) || "",
-        email:
-          getFieldValueByKeywords(lead, FIELD_KEYWORDS.email).replace(
-            /\s+/g,
-            " "
-          ) || "",
-        phone: phone || "",
-        geo: isoCode.toUpperCase(),
-        description: extractAnswers(lead), // строка
-        id: lead.id,
-      };
-    });
+      try {
+        const phoneRaw =
+          getFieldValueByKeywords(lead, FIELD_KEYWORDS.phone) || "";
+        const phone = phoneRaw.replace(/\s+/g, " ").trim();
 
-    console.log(leads)
+        const isoCode = phone ? getCountryISO(phone, phonesData) : "";
+
+        return {
+          id: lead.id || "",
+          full_name:
+            getFieldValueByKeywords(lead, FIELD_KEYWORDS.full_name) || "",
+          email: (getFieldValueByKeywords(lead, FIELD_KEYWORDS.email) || "")
+            .replace(/\s+/g, " ")
+            .trim(),
+          phone: phone,
+          geo: isoCode ? isoCode.toUpperCase() : "",
+          description: extractAnswers(lead) || "", // строка
+          created_time: lead.created_time || "", // добавим дату
+          raw: lead, // на всякий случай сохраним все поле
+        };
+      } catch (err) {
+        console.error("Ошибка при обработке лида:", err);
+
+        // всегда возвращаем объект, чтобы не было undefined
+        return {
+          id: lead.id || "",
+          full_name: "",
+          email: "",
+          phone: "",
+          geo: "",
+          description: "",
+          created_time: lead.created_time || "",
+          raw: lead,
+        };
+      }
+    });
 
     if (leads.length) {
       addMessage("success", "Данные с формы получены");

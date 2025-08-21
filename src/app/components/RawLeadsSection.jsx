@@ -31,7 +31,7 @@ const RawLeadsSection = ({
       {currentLeads.length > 0 && (
         <LeadsList
           headers={["Full Name", "Phone", "Email", "Geo", "Answers"]}
-          data={leads}
+          data={currentLeads}
           renderRow={(lead, className) => (
             <>
               <span className={className}>{lead.full_name}</span>
