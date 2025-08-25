@@ -108,13 +108,16 @@ const OfferForm = ({ source }) => {
           onChange={(val) => setTrafficSource(val)}
           placeholder="Traffic Source"
         />
-        <button
-          type="submit"
-          onClick={filterByToDay}
-          className="px-5 py-3  text-center font-[600] boder-0 border-[2px] border-[var(--color-main-blue)] rounded-[8px] bg-white duration-300 uppercase cursor-pointer hover:text-white hover:bg-[var(--color-main-blue)]"
-        >
-          Today
-        </button>
+        {source === "fb" ? (
+          <button
+            type="submit"
+            onClick={filterByToDay}
+            className="px-5 py-3  text-center font-[600] boder-0 border-[2px] border-[var(--color-main-blue)] rounded-[8px] bg-white duration-300 uppercase cursor-pointer hover:text-white hover:bg-[var(--color-main-blue)]"
+          >
+            Today
+          </button>
+        ) : null}
+
         <button
           type="submit"
           className="px-5 py-3  text-center font-[600] boder-0 border-[2px] border-[var(--color-main-blue)] rounded-[8px] bg-white duration-300 uppercase cursor-pointer hover:text-white hover:bg-[var(--color-main-blue)]"

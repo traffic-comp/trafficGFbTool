@@ -46,6 +46,20 @@ const ResultLeadsPanel = () => {
     setChecked([]);
   };
 
+  const selectedLeads = () => {
+    if (checked.length) {
+      const filtered = result.filter((lead) => checked.includes(lead.id));
+
+      sendToCrm(
+        filtered.map((lead) => ({
+          ...lead,
+          description: lead.description ? lead.description : "",
+        }))
+      );
+      setResult([])
+    }
+  };
+
   return (
     <>
       {isOpen && (
@@ -171,12 +185,21 @@ const ResultLeadsPanel = () => {
               Send to CRM
             </button>
           )}
-          {checked.length && (
+
+          {checked.length && isOpen && (
             <button
               className={`absolute z-index-5 left-[-57px] top-[270px] py-[9px] px-[11px] bg-[var(--color-red)] text-white border-[1px] border-[var(--color-red)] rotate-270 origin-center cursor-pointer`}
               onClick={deleteLeads}
             >
               Delete
+            </button>
+          )}
+          {checked.length && isOpen && (
+            <button
+              className={`absolute z-index-5 left-[-83px] top-[375px] py-[9px] px-[11px] bg-white text-black border-[1px] border-white rotate-270 origin-center cursor-pointer`}
+              onClick={() => selectedLeads()}
+            >
+              Send selected
             </button>
           )}
         </div>
