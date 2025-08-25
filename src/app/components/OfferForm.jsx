@@ -76,8 +76,10 @@ const OfferForm = ({ source }) => {
       );
     });
 
+    const mapped = todayLeads.map((lead) => ({ ...lead, country: lead.geo }));
+
     setLeads(todayLeads);
-    setResult(todayLeads);
+    setResult(mapped);
   };
 
   return (
