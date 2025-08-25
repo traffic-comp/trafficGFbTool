@@ -11,7 +11,7 @@ import Dropdown from "./Dropdown";
 
 const OfferForm = ({ source }) => {
   const [offers, setOffers] = useState([]);
-  const { leads, setResult, result } = useFBStore();
+  const { leads, setResult, result, setLeads } = useFBStore();
   const { setIsOpen } = useStore();
 
   const [offer, setOffer] = useState("");
@@ -53,7 +53,7 @@ const OfferForm = ({ source }) => {
 
         if (leadData) {
           setResult(ttLeads(leads, offer, aff, trafficSource));
-            console.log(result)
+          console.log(result);
           setIsOpen(true);
           return addMessage("success", "Данные дополнены!");
         }
@@ -61,6 +61,23 @@ const OfferForm = ({ source }) => {
 
       return addMessage("warning", "Сперва заполни форму");
     }
+  };
+
+  const filterByToDay = () => {
+    const today = new Date(); // сегодняшняя дата
+    const yyyy = today.getFullYear();
+    const mm = today.getMonth();
+    const dd = today.getDate();
+
+    const todayLeads = leads.filter((lead) => {
+      const d = new Date(lead.created_time);
+      return (
+        d.getFullYear() === yyyy && d.getMonth() === mm && d.getDate() === dd
+      );
+    });
+
+    setLeads(todayLeads);
+    setResult(todayLeads);
   };
 
   return (
@@ -89,7 +106,13 @@ const OfferForm = ({ source }) => {
           onChange={(val) => setTrafficSource(val)}
           placeholder="Traffic Source"
         />
-
+        <button
+          type="submit"
+          onClick={filterByToDay}
+          className="px-5 py-3  text-center font-[600] boder-0 border-[2px] border-[var(--color-main-blue)] rounded-[8px] bg-white duration-300 uppercase cursor-pointer hover:text-white hover:bg-[var(--color-main-blue)]"
+        >
+          Today
+        </button>
         <button
           type="submit"
           className="px-5 py-3  text-center font-[600] boder-0 border-[2px] border-[var(--color-main-blue)] rounded-[8px] bg-white duration-300 uppercase cursor-pointer hover:text-white hover:bg-[var(--color-main-blue)]"
