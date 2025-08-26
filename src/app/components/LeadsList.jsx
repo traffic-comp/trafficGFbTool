@@ -32,7 +32,6 @@ const LeadsList = ({
           <div
             className="relative"
             key={index}
-            // onClick={isResult ? () => showMenu(index) : () => {}}
           >
             <div
               className="grid px-[12px] py-[16px] cursor-pointer hover:bg-[ghostwhite]"
@@ -43,13 +42,6 @@ const LeadsList = ({
                 "overflow-hidden text-ellipsis whitespace-nowrap"
               )}
             </div>
-            {/* {isResult && activeMenu === index && activeMenu !== null ? (
-              <div className="absolute z-2 right-[15px] bottom-[-30px] p-[10px] rounded-[10px] bg-white shadow-[0px_4px_6px_1px_#00030533] cursor-pointer hover:bg-[ghostwhite]">
-                <span onClick={() => removeLead(item.phone)}>Удалить</span>
-              </div>
-            ) : (
-              ""
-            )} */}
           </div>
         ))}
       </div>

@@ -73,7 +73,7 @@ const ResultLeadsPanel = () => {
       )}
 
       <div
-        className={`fixed top-10 h-[100%] w-[160vh] bg-white right-[-150vh] duration-300  ${
+        className={`fixed top-10 h-[100%] w-[160vh] bg-white right-[-160vh] duration-300  ${
           isOpen ? "right-[0px] duration-300" : ""
         }`}
       >
@@ -189,31 +189,31 @@ const ResultLeadsPanel = () => {
             Ready to Load
           </button>
 
-          {isOpen && (
+          {isOpen ? (
             <button
               className={`absolute z-index-5 left-[-81px] top-[170px] py-[9px] px-[11px] bg-white text-black border-[1px] border-white rotate-270 origin-center cursor-pointer`}
               onClick={() => send()}
             >
               Send to CRM
             </button>
-          )}
+          ) : null}
 
-          {checked.length && isOpen && (
+          {checked.length && isOpen ? (
             <button
               className={`absolute z-index-5 left-[-57px] top-[270px] py-[9px] px-[11px] bg-[var(--color-red)] text-white border-[1px] border-[var(--color-red)] rotate-270 origin-center cursor-pointer`}
               onClick={deleteLeads}
             >
               Delete
             </button>
-          )}
-          {checked.length && isOpen && (
+          ) : null}
+          {checked.length && isOpen ? (
             <button
               className={`absolute z-index-5 left-[-83px] top-[375px] py-[9px] px-[11px] bg-white text-black border-[1px] border-white rotate-270 origin-center cursor-pointer`}
               onClick={() => selectedLeads()}
             >
               Send selected
             </button>
-          )}
+          ) : null}
         </div>
       </div>
     </>
