@@ -8,6 +8,7 @@ import useFBStore from "@/store/useFbStore";
 import useStore from "@/store/useStore";
 import useErrorStore from "@/store/useErrorStore";
 import Dropdown from "./Dropdown";
+import formatDate from "@/utils/formatDate";
 
 const OfferForm = ({ source }) => {
   const [offers, setOffers] = useState([]);
@@ -76,7 +77,11 @@ const OfferForm = ({ source }) => {
       );
     });
 
-    const mapped = todayLeads.map((lead) => ({ ...lead, country: lead.geo }));
+    const mapped = todayLeads.map((lead) => ({
+      ...lead,
+      country: lead.geo,
+      created_time: formatDate(lead.created_time),
+    }));
 
     setLeads(todayLeads);
     setResult(mapped);

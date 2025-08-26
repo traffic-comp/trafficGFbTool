@@ -5,6 +5,7 @@ import { sendToCrm } from "@/fetch/crm";
 import useErrorStore from "@/store/useErrorStore";
 import EditableItem from "./EditableItem";
 import { useState } from "react";
+import formatDate from "@/utils/formatDate";
 
 const ResultLeadsPanel = () => {
   const { result, setResult, updateLeadData, deleteLead } = useFBStore();
@@ -56,9 +57,11 @@ const ResultLeadsPanel = () => {
           description: lead.description ? lead.description : "",
         }))
       );
-      setResult([])
+      setResult([]);
     }
   };
+
+  console.log(result);
 
   return (
     <>
@@ -70,7 +73,7 @@ const ResultLeadsPanel = () => {
       )}
 
       <div
-        className={`fixed top-10 h-[100%] w-[150vh] bg-white right-[-150vh] duration-300  ${
+        className={`fixed top-10 h-[100%] w-[160vh] bg-white right-[-150vh] duration-300  ${
           isOpen ? "right-[0px] duration-300" : ""
         }`}
       >
@@ -91,6 +94,7 @@ const ResultLeadsPanel = () => {
               "User_id",
               "Landing/Landing name",
               "IP",
+              "Created time",
               "",
             ]}
             data={result}
@@ -159,6 +163,14 @@ const ResultLeadsPanel = () => {
                   id={lead.id}
                   field={"ip"}
                   data={lead.ip}
+                  updatedLeads={updateLeadData}
+                />
+                <EditableItem
+                  result={lead}
+                  className={className}
+                  id={lead.id}
+                  field={"ip"}
+                  data={formatDate(lead.created_time)}
                   updatedLeads={updateLeadData}
                 />
                 <input

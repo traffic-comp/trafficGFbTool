@@ -2,7 +2,6 @@ import LeadsList from "@/app/components/LeadsList";
 import OfferForm from "@/app/components/OfferForm";
 import TablePagination from "@/app/components/ui/TablePagination";
 import useFBStore from "@/store/useFbStore";
-import EditableItem from "./EditableItem";
 
 const RawLeadsSection = ({
   currentLeads = [],
@@ -30,7 +29,7 @@ const RawLeadsSection = ({
 
       {currentLeads.length > 0 && (
         <LeadsList
-          headers={["Full Name", "Phone", "Email", "Geo", "Answers"]}
+          headers={["Full Name", "Phone", "Email", "Geo", "Answers","Created time"]}
           data={currentLeads}
           renderRow={(lead, className) => (
             <>
@@ -39,6 +38,7 @@ const RawLeadsSection = ({
               <span className={className}>{lead.email}</span>
               <span className={className}>{lead.geo}</span>
               <span className={className}>{lead.description}</span>
+              <span className={className}>{lead.created_time}</span>
             </>
           )}
         />
