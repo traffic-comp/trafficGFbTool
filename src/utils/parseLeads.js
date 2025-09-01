@@ -4,6 +4,7 @@ import { getCountryISO } from "./getCountryISO";
 
 export const FIELD_KEYWORDS = {
   full_name: [
+    "nome_e_cognome",
     "full name",
     "name",
     "fullname",
@@ -12,7 +13,6 @@ export const FIELD_KEYWORDS = {
     "nome",
     "vollständiger_name",
     "vollständiger_name",
-    "nome_e_cognome",
     "नाम",
     "اسم",
     "שם",
@@ -55,6 +55,7 @@ export function normalize(str) {
     .replace(/["'“”‘’«»]/g, "") // убираем кавычки
     .trim();
 }
+
 export function extractAnswers(lead) {
   const allKeywords = [
     ...FIELD_KEYWORDS.full_name,
@@ -63,17 +64,24 @@ export function extractAnswers(lead) {
   ].map(normalize);
 
   return lead.field_data
-    .filter((f) => !allKeywords.some((k) => normalize(f.name).includes(k)))
+    .filter((f) => {
+      const nameNormalized = normalize(f.name);
+      // исключаем поля ключевых типов
+      return !allKeywords.includes(nameNormalized);
+    })
     .flatMap((f) => f.values)
-    .map((val) => val.replace(/_/g, " "))
+    .map((val) => val.replace(/\s+/g, " ").trim())
     .join("; ");
 }
 
 export function getFieldValueByKeywords(lead, keywords) {
   const normalizedKeywords = keywords.map(normalize);
-  const match = lead.field_data.find((f) =>
-    normalizedKeywords.some((k) => normalize(f.name).includes(k))
-  );
+
+  const match = lead.field_data.find((f) => {
+    const nameNormalized = normalize(f.name);
+    return normalizedKeywords.includes(nameNormalized); // Точное совпадение
+  });
+
   return match?.values?.[0] || "";
 }
 
@@ -97,7 +105,7 @@ export const fbLeads = (leads, offer, aff, trafficSource) => {
         ip: getRandomIpByCountry(isoCode || "IL"),
         user_id: aff || "",
         source: trafficSource || "",
-        created_time: lead.created_time || "", 
+        created_time: lead.created_time || "",
         raw: lead,
       };
     } catch (err) {
@@ -123,7 +131,6 @@ export const fbLeads = (leads, offer, aff, trafficSource) => {
 
   return leadData;
 };
-
 
 export const ttLeads = (leads, offer, aff, trafficSource) => {
   const leadData = leads.map((lead) => {
