@@ -6,6 +6,7 @@ export const FIELD_KEYWORDS = {
   full_name: [
     "nome_e_cognome",
     "full name",
+    "full_name",
     "name",
     "fullname",
     "полное_имя",
@@ -25,6 +26,7 @@ export const FIELD_KEYWORDS = {
     "telefonnummer",
     "מספר טלפון",
     "מספר_טלפון",
+    "phone_number",
     "numero_di_telefono",
     "telefono",
     "telefonnummer",
