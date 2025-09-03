@@ -9,6 +9,7 @@ import useStore from "@/store/useStore";
 import useErrorStore from "@/store/useErrorStore";
 import Dropdown from "./Dropdown";
 import formatDate from "@/utils/formatDate";
+import { filteredLeads } from "@/fetch/duplicateLeads";
 
 const OfferForm = ({ source }) => {
   const [offers, setOffers] = useState([]);
@@ -36,13 +37,18 @@ const OfferForm = ({ source }) => {
     ktOffers();
   }, []);
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
     if (source === "fb") {
       if (leads && offer && aff && trafficSource) {
         const leadData = fbLeads(leads, offer, aff, trafficSource);
+
         if (leadData) {
-          setResult(fbLeads(leads, offer, aff, trafficSource));
+          const filtered = await filteredLeads(leadData);
+
+          // просто показываем только новые лиды
+          setResult(filtered.data);
+
           setIsOpen(true);
           return addMessage("success", "Данные дополнены!");
         }
@@ -53,8 +59,11 @@ const OfferForm = ({ source }) => {
         const leadData = ttLeads(leads, offer, aff, trafficSource);
 
         if (leadData) {
-          setResult(ttLeads(leads, offer, aff, trafficSource));
-          console.log(result);
+          const filtered = await filteredLeads(leadData);
+
+          // просто показываем только новые лиды
+          setResult(filtered.data);
+
           setIsOpen(true);
           return addMessage("success", "Данные дополнены!");
         }

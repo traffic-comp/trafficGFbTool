@@ -14,7 +14,6 @@ function numberToIp(num) {
 }
 
 export default function getRandomIpByCountry(isoCode) {
-  console.log(isoCode)
   const ranges = countryIpRanges[isoCode.toUpperCase()];
   if (!ranges) {
     throw new Error("Страна не найдена или нет данных по IP диапазонам");

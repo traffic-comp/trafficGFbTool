@@ -88,7 +88,6 @@ export function getFieldValueByKeywords(lead, keywords) {
 }
 
 export const fbLeads = (leads, offer, aff, trafficSource) => {
-  console.log(leads, "fbleads");
 
   const leadData = leads.map((lead) => {
     try {
@@ -108,7 +107,6 @@ export const fbLeads = (leads, offer, aff, trafficSource) => {
         user_id: aff || "",
         source: trafficSource || "",
         created_time: lead.created_time || "",
-        raw: lead,
       };
     } catch (err) {
       console.error("Ошибка при обработке лида (fbLeads):", err);
@@ -126,7 +124,6 @@ export const fbLeads = (leads, offer, aff, trafficSource) => {
         user_id: aff || "",
         source: trafficSource || "",
         created_time: lead?.created_time || "",
-        raw: lead || {},
       };
     }
   });

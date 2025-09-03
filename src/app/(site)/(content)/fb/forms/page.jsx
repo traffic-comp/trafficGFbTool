@@ -40,6 +40,7 @@ const FormsPage = () => {
   const showLead = async (formId) => {
     const rawLeads = await getLeadsByForm(formId, activeForm);
     setActiveFormId(formId);
+
     const leads = rawLeads.map((lead) => {
       try {
         const phoneRaw =
@@ -47,10 +48,6 @@ const FormsPage = () => {
         const phone = phoneRaw.replace(/\s+/g, " ").trim();
 
         const isoCode = phone ? getCountryISO(phone, phonesData) : "";
-        console.log(
-          getFieldValueByKeywords(lead, FIELD_KEYWORDS.full_name),
-          FIELD_KEYWORDS.full_name
-        );
         return {
           id: lead.id || "",
           full_name:

@@ -4,8 +4,9 @@ import useStore from "@/store/useStore";
 import { sendToCrm } from "@/fetch/crm";
 import useErrorStore from "@/store/useErrorStore";
 import EditableItem from "./EditableItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import formatDate from "@/utils/formatDate";
+import { uploadLeads } from "@/fetch/duplicateLeads";
 
 const ResultLeadsPanel = () => {
   const { result, setResult, updateLeadData, deleteLead } = useFBStore();
@@ -15,13 +16,19 @@ const ResultLeadsPanel = () => {
 
   const [checked, setChecked] = useState([]);
 
-  const send = () => {
+  const send = async () => {
     if (!result.length) {
       addMessage("error", "Ошибка при отправке");
       return;
     }
 
     sendToCrm(
+      result.map((lead) => ({
+        ...lead,
+        description: lead.description ? lead.description : "",
+      }))
+    );
+    await saveAsDubles(
       result.map((lead) => ({
         ...lead,
         description: lead.description ? lead.description : "",
@@ -61,7 +68,20 @@ const ResultLeadsPanel = () => {
     }
   };
 
-  console.log(result);
+  const saveAsDubles = async () => {
+    console.log(result);
+    const data = await uploadLeads(result);
+
+    if (data.error) {
+      console.log(data.error);
+      return addMessage("error", "Ошибка при сохранении дублей");
+    }
+
+    addMessage(
+      "success",
+      `${data.message}. ${data.saved ? "Сохраненно " + data.saved : ""}`
+    );
+  };
 
   return (
     <>
@@ -191,27 +211,36 @@ const ResultLeadsPanel = () => {
 
           {isOpen ? (
             <button
-              className={`absolute z-index-5 left-[-81px] top-[170px] py-[9px] px-[11px] bg-white text-black border-[1px] border-white rotate-270 origin-center cursor-pointer`}
+              className={`absolute z-index-5 left-[-81px] top-[167px] py-[9px] px-[11px] bg-white text-black border-[1px] border-white rotate-270 origin-center cursor-pointer`}
               onClick={() => send()}
             >
               Send to CRM
             </button>
           ) : null}
+          {isOpen ? (
+            <button
+              className={`absolute z-index-5 left-[-86px] top-[294px] py-[9px] px-[11px] bg-white text-black border-[1px] border-white rotate-270 origin-center cursor-pointer`}
+              onClick={() => saveAsDubles()}
+            >
+              Save as dubles
+            </button>
+          ) : null}
 
           {checked.length && isOpen ? (
             <button
-              className={`absolute z-index-5 left-[-57px] top-[270px] py-[9px] px-[11px] bg-[var(--color-red)] text-white border-[1px] border-[var(--color-red)] rotate-270 origin-center cursor-pointer`}
-              onClick={deleteLeads}
-            >
-              Delete
-            </button>
-          ) : null}
-          {checked.length && isOpen ? (
-            <button
-              className={`absolute z-index-5 left-[-83px] top-[375px] py-[9px] px-[11px] bg-white text-black border-[1px] border-white rotate-270 origin-center cursor-pointer`}
+              className={`absolute z-index-5 left-[-83px] top-[424px] py-[9px] px-[11px] bg-white text-black border-[1px] border-white rotate-270 origin-center cursor-pointer`}
               onClick={() => selectedLeads()}
             >
               Send selected
+            </button>
+          ) : null}
+
+          {checked.length && isOpen ? (
+            <button
+              className={`absolute z-index-5 left-[-57px] top-[525px] py-[9px] px-[11px] bg-[var(--color-red)] text-white border-[1px] border-[var(--color-red)] rotate-270 origin-center cursor-pointer`}
+              onClick={deleteLeads}
+            >
+              Delete
             </button>
           ) : null}
         </div>
