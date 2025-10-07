@@ -1,0 +1,114 @@
+.card {
+  padding: 1.5rem; /* p-6 */
+  background: #fff; /* bg-white */
+  border-radius: 0.75rem; /* rounded-xl */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+  border: 1px solid #e5e7eb; /* border-gray-200 */
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem; /* gap-6 */
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem; /* gap-1 */
+}
+
+.title {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600; /* font-semibold */
+  color: #1f2937; /* text-gray-800 */
+}
+
+.text {
+  font-size: 0.875rem; /* text-sm */
+  color: #4b5563; /* text-gray-600 */
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem; /* gap-4 */
+  width: 100%;
+  max-width: 28rem; /* max-w-md */
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.875rem; /* text-sm */
+  color: #374151; /* text-gray-700 */
+}
+
+.label span {
+  margin-bottom: 0.25rem; /* mb-1 */
+}
+
+.input {
+  padding: 0.5rem 0.75rem; /* px-3 py-2 */
+  border: 1px solid #d1d5db; /* border */
+  border-radius: 0.375rem; /* rounded-md */
+  outline: none;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px #3b82f6; /* focus:ring-blue-500 */
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* gap-2 */
+  min-width: 130px;
+}
+
+.button {
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  border-radius: 0.375rem; /* rounded-md */
+  font-size: 0.875rem; /* text-sm */
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.danger {
+  background: #ef4444; /* bg-red-500 */
+  color: white;
+}
+
+.danger:hover {
+  background: #dc2626; /* hover:bg-red-600 */
+}
+
+.primary {
+  background: #6366f1; /* bg-indigo-500 */
+  color: white;
+}
+
+.primary:hover {
+  background: #4f46e5; /* hover:bg-indigo-600 */
+}
+
+.success {
+  background: #10b981; /* bg-emerald-500 */
+  color: white;
+}
+
+.success:hover {
+  background: #059669; /* hover:bg-emerald-600 */
+}
+
+.secondary {
+  background: #d1d5db; /* bg-gray-300 */
+  color: #1f2937; /* text-gray-800 */
+}
+
+.secondary:hover {
+  background: #9ca3af; /* hover:bg-gray-400 */
+}

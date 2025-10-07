@@ -6,18 +6,18 @@
 html,
 body,
 #__next {
-  height: 100%;
+  height: 100vh;
   margin: 0;
   padding: 0;
-  overflow: hidden; 
+  overflow: hidden;
   scrollbar-width: none;
-  -ms-overflow-style: none; 
+  -ms-overflow-style: none;
   overflow: hidden;
 }
 
 *::-webkit-scrollbar,
 *::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
 li {
@@ -32,7 +32,7 @@ li {
   --color-white: #fff;
   --color-main-blue: #0b69b7;
   --bg-main: #f8f9fa;
-  --color-red:#da4848;
+  --color-red: #da4848;
   --animation-loader: loader;
 }
 body {
@@ -127,4 +127,8 @@ body {
     background-position: right 18px bottom 18px, right 18px top 18px, 18px 18px,
       18px 100%, 100% 100%, 100% 0, 0 0, bottom 18px left 0;
   }
+}
+
+.pb-56 {
+  padding-bottom: 56px;
 }

@@ -1,0 +1,41 @@
+.navbar {
+  padding: 24px 5px 24px 24px;
+  background: #fff;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 65px;
+}
+
+.logoContainer img {
+  width: 50px;
+}
+
+.logoContainer p {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 24px;
+}
+
+.menuTitle {
+  margin-bottom: 20px;
+  font-size: 16px;
+  line-height: 16px;
+  color: #71717a;
+}
+.navItemHeader {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.navItemHeader p {
+  font-size: 18px;
+}
+
+.subNavList {
+  margin-bottom: 15px;
+}

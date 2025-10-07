@@ -88,24 +88,24 @@ export function getFieldValueByKeywords(lead, keywords) {
 }
 
 export const fbLeads = (leads, offer, aff, trafficSource) => {
-
   const leadData = leads.map((lead) => {
     try {
-      const phone = lead.phone || "";
+      const phoneRaw =
+        getFieldValueByKeywords(lead, FIELD_KEYWORDS.phone) || "";
+      const phone = phoneRaw.replace(/\s+/g, " ").trim();
       const isoCode = phone ? getCountryISO(phone, phonesData) : "";
-
       return {
         id: lead.id || "",
-        full_name: lead.full_name || "",
+        full_name:
+          getFieldValueByKeywords(lead, FIELD_KEYWORDS.full_name) || "",
+        email:
+          (getFieldValueByKeywords(lead, FIELD_KEYWORDS.email) || "")
+            .replace(/\s+/g, " ")
+            .trim() || "",
         phone,
-        email: lead.email || "",
-        description: lead.description || "",
+        description: extractAnswers(lead) || "",
         country: isoCode || "",
-        landing: offer || "",
-        landing_name: offer || "",
         ip: getRandomIpByCountry(isoCode || "IL"),
-        user_id: aff || "",
-        source: trafficSource || "",
         created_time: lead.created_time || "",
       };
     } catch (err) {

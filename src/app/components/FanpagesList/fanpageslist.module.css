@@ -1,0 +1,21 @@
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+.circle {
+  width: 15px;
+  height: 15px;
+  border: 2px solid black;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.activeCircle {
+  border: 2px solid var(--color-main-blue);
+  background: #0b6ab771;
+}
+.formName {
+  display: inline-block;
+}

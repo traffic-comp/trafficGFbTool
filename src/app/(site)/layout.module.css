@@ -1,0 +1,29 @@
+.main {
+  display: grid;
+  grid-template-columns: 264px auto;
+  height: 100vh;
+}
+
+.container {
+  height: calc(100% - 84px);
+  margin: 24px;
+  padding: 24px;
+  overflow: hidden;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.secondTitle {
+  margin-bottom: 20px;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 32px;
+  color: #0b69b7;
+  text-transform: uppercase;
+}

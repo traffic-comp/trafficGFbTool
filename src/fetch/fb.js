@@ -85,18 +85,6 @@ export const getLeadsByForm = async (formId, access_token) => {
   }
 };
 
-export const getLeadsForAllForms = async (forms) => {
-  for (const form of forms) {
-    const leads = await getLeadsByForm(form.id);
-
-    if (leads?.length) {
-      for (const lead of leads) {
-        console.log(lead.field_data);
-      }
-    }
-  }
-};
-
 export const subscribeLeadForm = async (pageId, pageAccessToken) => {
   console.log(pageId, pageAccessToken);
   try {
@@ -117,29 +105,6 @@ export const subscribeLeadForm = async (pageId, pageAccessToken) => {
     const data = await res.json();
     console.log("✅ Проверка подписка:", data);
     return data;
-  } catch (err) {
-    console.error("❌ Ошибка подписки:", err);
-  }
-};
-export const checkSubscribePages = async (pageId, pageAccessToken) => {
-  console.log(pageId, pageAccessToken);
-  try {
-    const res = await fetch(
-      `https://graph.facebook.com/v19.0/${pageId}/subscribed_apps`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          access_token: pageAccessToken,
-          subscribed_fields: "leadgen",
-        }),
-      }
-    );
-
-    const data = await res.json();
-    console.log("✅ Подписка успешно:", data);
   } catch (err) {
     console.error("❌ Ошибка подписки:", err);
   }

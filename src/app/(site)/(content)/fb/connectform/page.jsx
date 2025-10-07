@@ -1,7 +1,7 @@
 "use client";
 
-import Dropdown from "@/app/components/Dropdown";
-import TemplateCard from "@/app/components/TemplateCard";
+import Dropdown from "@/app/components/Dropdown/Dropdown";
+import TemplateCard from "@/app/components/TemplateCard/TemplateCard";
 import { getLeadForms, getPages, subscribeLeadForm } from "@/fetch/fb";
 import { getOffers } from "@/fetch/kt";
 import { getTemplates } from "@/fetch/template";

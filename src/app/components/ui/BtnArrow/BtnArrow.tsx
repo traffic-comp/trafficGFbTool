@@ -1,0 +1,18 @@
+import { JSX } from "react";
+import { BtnArrowProps } from "./BtnArrow.props";
+
+const BtnArrow = ({ fill, className }: BtnArrowProps): JSX.Element => {
+  return (
+    <svg
+      width="6"
+      height="10"
+      className={className}
+      viewBox="0 0 6 10"
+      fill={fill}
+    >
+      <path d="M5.25834 0.59165C4.93334 0.26665 4.40834 0.26665 4.08334 0.59165L0.258337 4.41665C-0.0666626 4.74165 -0.0666626 5.26665 0.258337 5.59165L4.08334 9.41665C4.40834 9.74165 4.93334 9.74165 5.25834 9.41665C5.58334 9.09165 5.58334 8.56665 5.25834 8.24165L2.025 4.99998L5.25834 1.76665C5.58334 1.44165 5.575 0.908317 5.25834 0.59165Z" />
+    </svg>
+  );
+};
+
+export default BtnArrow;

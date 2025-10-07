@@ -1,0 +1,46 @@
+.header {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 8px 20px;
+  background: white;
+  color: var(--color-second-gray);
+  flex-shrink: 0;
+}
+.leadRow {
+  display: grid;
+  padding: 16px 12px;
+  cursor: pointer;
+}
+.leadRow:hover {
+  background-color: ghostwhite;
+}
+.leadRowText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.leadsСontainer {
+  padding-bottom: 24px;
+}
+
+.leadlist {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 64px);
+  overflow: hidden;
+}
+.leadRowsContainer {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.dublicate {
+  background-color: #f3f3f3;
+  color: gray;
+}
+
+.dublicate input[type="checkbox"]{
+  display: none;
+}

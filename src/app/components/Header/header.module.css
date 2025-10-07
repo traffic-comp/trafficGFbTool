@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 4px;
+  background-color: white;
+  height: 40px;
+}
+
+.fbLink {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* gap-2.5 = 0.625rem = 10px */
+  padding: 10px; /* px-2.5 = 0.625rem = 10px */
+  text-align: center;
+  font-size: 18px; /* text-lg примерно 18px */
+  font-weight: 600; /* font-semibold */
+  text-transform: uppercase;
+  color: white;
+  border-radius: 12px; /* rounded-xl */
+  background-color: #1877f2;
+  transition: all 0.3s;
+  cursor: pointer;
+  text-decoration: none; /* no-underline */
+}
+
+.fbLink img {
+  filter: invert(1);
+}

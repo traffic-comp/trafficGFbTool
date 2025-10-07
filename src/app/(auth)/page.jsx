@@ -1,8 +1,8 @@
 "use client";
-import { login } from "@/fetch/user";
-import useErrorStore from "@/store/useErrorStore";
-import { Cookies } from "@/utils/cookies";
-import { useRouter } from "next/navigation";
+import { login } from "@/fetch/user.js";
+import useErrorStore from "@/store/useErrorStore.js";
+import { Cookies } from "@/utils/cookies.js";
+import { useRouter } from "next/navigation.js";
 import { useState } from "react";
 
 const Auth = () => {

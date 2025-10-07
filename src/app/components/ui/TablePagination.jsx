@@ -1,5 +1,5 @@
 "use client";
-import BtnArrow from "./BtnArrow";
+import BtnArrow from "./BtnArrow/BtnArrow";
 
 const Pagination = ({ currentPage, totalPages, goToPage }) => {
   return (

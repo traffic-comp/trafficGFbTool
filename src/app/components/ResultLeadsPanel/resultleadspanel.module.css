@@ -1,0 +1,97 @@
+.overlay {
+  position: absolute;
+  width: 80%;
+  height: 100%;
+  background: #00000086;
+  top: 40px;
+  left: 0;
+}
+
+.panel {
+  position: fixed;
+  top: 40px;
+  height: 100%;
+  width: 70%;
+  background: white;
+  right: -70%;
+  transition: right 0.3s ease;
+}
+
+.panelOpen {
+  right: 0%;
+}
+
+.scroll {
+  overflow: scroll;
+  height: 100%;
+}
+
+.toggleBtn {
+  position: absolute;
+  left: -85px;
+  top: 41px;
+  padding: 9px 11px;
+  color: white;
+  background: var(--color-main-blue);
+  border: 1px solid var(--color-main-blue);
+  transform: rotate(270deg);
+  transform-origin: center;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.sendBtn {
+  position: absolute;
+  left: -81px;
+  top: 167px;
+  padding: 9px 11px;
+  background: white;
+  color: black;
+  border: 1px solid white;
+  transform: rotate(270deg);
+  transform-origin: center;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.saveBtn {
+  position: absolute;
+  left: -86px;
+  top: 294px;
+  padding: 9px 11px;
+  background: white;
+  color: black;
+  border: 1px solid white;
+  transform: rotate(270deg);
+  transform-origin: center;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.sendSelectedBtn {
+  position: absolute;
+  left: -83px;
+  top: 424px;
+  padding: 9px 11px;
+  background: white;
+  color: black;
+  border: 1px solid white;
+  transform: rotate(270deg);
+  transform-origin: center;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.deleteBtn {
+  position: absolute;
+  left: -57px;
+  top: 525px;
+  padding: 9px 11px;
+  background: var(--color-red);
+  color: white;
+  border: 1px solid var(--color-red);
+  transform: rotate(270deg);
+  transform-origin: center;
+  cursor: pointer;
+  z-index: 5;
+}
