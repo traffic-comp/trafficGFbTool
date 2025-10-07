@@ -1,17 +1,20 @@
 import Link from "next/link";
-import { NavbarItemProms } from "./NavbarItem";
-import styles from "./message.module.css";
+import { NavbarItemProms } from "./NavbarItem.props";
+import s from "./navbaritem.module.css";
+import { JSX } from "react";
 
-const NavbarItem = ({ img, text, isActive, alt, href }: NavbarItemProms) => {
+const NavbarItem = ({
+  img,
+  text,
+  isActive,
+  alt,
+  href,
+}: NavbarItemProms): JSX.Element => {
   return (
-    <Link
-      className={`${styles.link} ${isActive ? styles.active : ""}`}
-      href={href}
-    >
-      <img className={styles.icon} src={img} alt={alt} />
+    <Link className={`${s.link} ${isActive ? s.active : ""}`} href={href}>
+      <img className={s.icon} src={img} alt={alt} />
       <p>{text}</p>
     </Link>
   );
 };
-
 export default NavbarItem;

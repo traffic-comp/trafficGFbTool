@@ -1,10 +1,10 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import NavbarItem from "../ui/NavbarItem/NavbarItem";
 import { JSX, useState } from "react";
 import type { NavbarProps } from "./Navbar.props";
 import s from "./navbar.module.css";
+import NavbarItem from "../ui/NavbarItem/NavbarItem";
 
 const Navbar = ({ ...props }: NavbarProps): JSX.Element => {
   const pathName = usePathname();
