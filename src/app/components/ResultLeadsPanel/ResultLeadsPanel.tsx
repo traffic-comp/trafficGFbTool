@@ -214,29 +214,28 @@ const ResultLeadsPanel = ({ ...props }: ResultLeadsPanelProps) => {
           )}
 
           {checked.length > 0 && isOpen && (
-          <Button
-            type="squere"
-            posX="-90px"
-            posY="485px"
-            rotate={true}
-            onClick={() => selectedLeads()}
-          >
-            Send selected
-          </Button>
+            <Button
+              type="squere"
+              posX="-90px"
+              posY="485px"
+              rotate={true}
+              onClick={() => selectedLeads()}
+            >
+              Send selected
+            </Button>
           )}
 
           {checked.length > 0 && isOpen && (
-          <Button
-            type="squere"
-            posX="-61px"
-            posY="600px"
-            rotate={true}
-            red={true}
-            onClick={deleteLeads}
-          >
-            Delete
-          </Button>
-
+            <Button
+              type="squere"
+              posX="-61px"
+              posY="600px"
+              rotate={true}
+              red={true}
+              onClick={deleteLeads}
+            >
+              Delete
+            </Button>
           )}
         </div>
       </div>

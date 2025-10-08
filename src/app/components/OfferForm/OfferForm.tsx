@@ -14,6 +14,9 @@ import type { OfferFormProps } from "./OfferForm.props";
 import type { Lead } from "@/interfaces/global";
 import type { Offer } from "@/interfaces/kt";
 import Button from "../ui/Button/Button";
+import { getCountryISO } from "@/utils/getCountryISO";
+import phonesData from "@/data/phonesData";
+import getRandomIpByCountry from "@/utils/getRandomIpByCountry";
 
 const OfferForm = ({ source }: OfferFormProps): JSX.Element => {
   const [offers, setOffers] = useState<Offer[]>([]);
@@ -63,13 +66,20 @@ const OfferForm = ({ source }: OfferFormProps): JSX.Element => {
       return addMessage("warning", "Сперва заполни форму");
     } else {
       if (leads && offer && aff && trafficSource) {
-        const leadData = leads.map((lead: Lead) => ({
-          ...lead,
-          landing: offer,
-          landing_name: offer,
-          user_id: aff,
-          source: trafficSource,
-        }));
+        const leadData = leads.map((lead: Lead) => {
+          const phone = lead.phone.replace(/\s+/g, "");
+          const isoCode = getCountryISO(phone, phonesData);
+          
+          return {
+            ...lead,
+            landing: offer,
+            landing_name: offer,
+            user_id: aff,
+            source: trafficSource,
+            phone,
+            ip: getRandomIpByCountry(isoCode),
+          };
+        });
 
         if (leadData) {
           const filtered = await filteredLeads(leadData);
