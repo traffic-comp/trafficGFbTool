@@ -22,12 +22,12 @@ const Navbar = ({ ...props }: NavbarProps): JSX.Element => {
           alt: "Facebook icon",
           href: "/fb/fanpages",
         },
-        // {
-        //   text: "Connect form",
-        //   img: "/assets/icon/fb.png",
-        //   alt: "Facebook icon",
-        //   href: "/fb/connectform",
-        // },
+        {
+          text: "Links",
+          img: "/assets/icon/fb.png",
+          alt: "Facebook icon",
+          href: "/fb/links",
+        },
       ],
     },
     {

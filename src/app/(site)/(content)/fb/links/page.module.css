@@ -1,0 +1,115 @@
+.btnWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.linkWrapper {
+  text-align: center;
+}
+
+.linkWrapper a {
+  font-size: 32px;
+  text-decoration: underline;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.formInput {
+  padding: 7px 12px;
+  border: 1px solid #63616c;
+  border-radius: 5px;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.formInput:focus {
+  border-color: #0b69b7;
+}
+
+.formSubmit {
+  padding: 7px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0b69b7;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.formSubmit:hover {
+  background-color: #095293;
+}
+
+.linksList {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: scroll;
+}
+.scrollContainer{
+  overflow: hidden;
+  height: calc(100% - 150px);
+}
+
+.linksItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f7f7f8;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  padding: 10px 14px;
+  transition: all 0.2s ease;
+}
+
+.linksItem:hover {
+  background: #eef6ff;
+  border-color: #0b69b7;
+}
+
+.linksUrl {
+  color: #0b69b7;
+  text-decoration: none;
+  word-break: break-all;
+  flex: 1;
+}
+
+.linksUrl:hover {
+  text-decoration: underline;
+}
+
+.linksDelete {
+  background: #ff4c4c;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 4px 10px;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.linksDelete:hover {
+  background: #e33b3b;
+}
+
+.linksEempty {
+  text-align: center;
+  color: #777;
+  padding: 12px;
+}

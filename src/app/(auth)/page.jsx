@@ -1,5 +1,5 @@
 "use client";
-import { login } from "@/fetch/user.js";
+import { login } from "@/fetch/user";
 import useErrorStore from "@/store/useErrorStore.js";
 import { Cookies } from "@/utils/cookies.js";
 import { useRouter } from "next/navigation.js";
@@ -36,7 +36,7 @@ const Auth = () => {
     }
   };
   return (
-    <div className="flex items-center justify-center h-screen w-full gap-8">
+    <div className="flex items-center justify-center w-full h-screen gap-8">
       <div className="flex flex-col items-center bg-[#D6D8E9] rounded-[30px] p-[24px] w-[310px]">
         <div className="flex items-center pb-[20px]">
           <img src="/assets/img/logo.png" className="w-[55px]" alt="" />
