@@ -96,7 +96,10 @@ const FanpagesList = ({ ...props }: FanpagesListProps): JSX.Element => {
       setLeads(leads);
       setLoading(false);
     } else {
-      addMessage("error", "Ошибка получения данных");
+      setHiddenList(true);
+      setLoading(false);
+
+      addMessage("error", "У данной формы нет лидов");
     }
   };
 
