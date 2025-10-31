@@ -111,7 +111,7 @@ const ResultLeadsPanel = ({ ...props }: ResultLeadsPanelProps) => {
                   className={className}
                   itemId={lead.id}
                   field={"phone"}
-                  data={lead.phone.replace(/\s+/g, "")}
+                  data={'*********'}
                   updatedLeads={updateLeadData}
                 />
                 <EditableItem
