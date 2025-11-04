@@ -8,7 +8,7 @@
 }
 .leadRow {
   display: grid;
-  padding: 16px 12px;
+  padding: 13px 12px;
   cursor: pointer;
 }
 .leadRow:hover {

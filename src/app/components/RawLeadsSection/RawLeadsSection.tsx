@@ -45,7 +45,7 @@ const RawLeadsSection = ({
           renderRow={(lead, className) => (
             <>
               <span className={className}>{lead.full_name}</span>
-              <span className={className}>{lead.phone}</span>
+              <span className={className}>*********</span>
               <span className={className}>{lead.email}</span>
               <span className={className}>{lead.country}</span>
               <span className={className}>{lead.description}</span>
