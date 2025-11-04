@@ -90,9 +90,9 @@ export function getFieldValueByKeywords(lead: any, keywords: any) {
 
 export const fbLeads = (
   leads: Lead[],
-  offer: string,
-  aff: string,
-  trafficSource: string
+  offer?: string,
+  aff?: string,
+  trafficSource?: string
 ) => {
   const leadData = leads.map((lead) => {
     try {

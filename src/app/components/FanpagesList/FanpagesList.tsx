@@ -6,16 +6,16 @@ import type { FBFrom, Page } from "@/interfaces/fb.js";
 
 import s from "./fanpageslist.module.css";
 import { JSX, useEffect, useState } from "react";
-import { getLeadForms, getLeadsByForm, getPages } from "@/fetch/fb";
-import { Cookies } from "@/utils/cookies";
+import { getLeadForms, getLeadsByForm, getPages } from "@/fetch/fb.ts";
+import { Cookies } from "@/utils/cookies.ts";
 
 import Loader from "@/app/components/ui/Loader/Loader";
 import RawLeadsSection from "@/app/components/RawLeadsSection/RawLeadsSection";
 import ResultLeadsPanel from "@/app/components/ResultLeadsPanel/ResultLeadsPanel";
+import { fbLeads } from "@/utils/parseLeads.ts";
 import useErrorStore from "@/store/useErrorStore.js";
 import FormList from "@/app/components/FormList/FormList";
 import Button from "../ui/Button/Button";
-import { fbLeads } from "@/utils/parseLeads";
 
 const FanpagesList = ({ ...props }: FanpagesListProps): JSX.Element => {
   const {
@@ -38,8 +38,8 @@ const FanpagesList = ({ ...props }: FanpagesListProps): JSX.Element => {
   const [hiddenList, setHiddenList] = useState<boolean>(false);
 
   const fbPages = async () => {
-    const fb_access_token = Cookies.get("fb_access_token");
-    const pagesList = await getPages(fb_access_token!);
+    const fb_access_token: string | null = Cookies.get("fb_access_token");
+    const pagesList = await getPages(fb_access_token as string);
     if (pagesList) {
       setPages(pagesList);
     }
@@ -83,10 +83,10 @@ const FanpagesList = ({ ...props }: FanpagesListProps): JSX.Element => {
     }
   };
 
-  const showLead = async (formId: number) => {
+  const showLead = async (formId: string) => {
     setLoading(true);
 
-    const rawLeads = await getLeadsByForm(formId, activeForm);
+    const rawLeads: any = await getLeadsByForm(Number(formId), activeForm);
     setActiveFormId(formId);
 
     const leads = fbLeads(rawLeads);
