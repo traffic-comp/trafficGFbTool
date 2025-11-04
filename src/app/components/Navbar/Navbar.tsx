@@ -28,6 +28,12 @@ const Navbar = ({ ...props }: NavbarProps): JSX.Element => {
           alt: "Facebook icon",
           href: "/fb/links",
         },
+        {
+          text: "Spend",
+          img: "/assets/icon/fb.png",
+          alt: "Facebook icon",
+          href: "/fb/spend",
+        },
       ],
     },
     {

@@ -1,0 +1,38 @@
+.scrollContainer {
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: auto;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+/* таблица */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1000px;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table thead {
+  position: sticky;
+  top: 0;
+  background: #fff; 
+  border: 1px solid #ddd;
+  z-index: 2;
+}
+
+.tableRow:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tableRow:hover {
+  background-color: #f1f1f1;
+}

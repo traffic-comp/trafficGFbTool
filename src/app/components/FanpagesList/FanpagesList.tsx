@@ -6,16 +6,16 @@ import type { FBFrom, Page } from "@/interfaces/fb.js";
 
 import s from "./fanpageslist.module.css";
 import { JSX, useEffect, useState } from "react";
-import { getLeadForms, getLeadsByForm, getPages } from "@/fetch/fb.js";
-import { Cookies } from "@/utils/cookies.js";
+import { getLeadForms, getLeadsByForm, getPages } from "@/fetch/fb";
+import { Cookies } from "@/utils/cookies";
 
 import Loader from "@/app/components/ui/Loader/Loader";
 import RawLeadsSection from "@/app/components/RawLeadsSection/RawLeadsSection";
 import ResultLeadsPanel from "@/app/components/ResultLeadsPanel/ResultLeadsPanel";
-import { fbLeads } from "@/utils/parseLeads.js";
 import useErrorStore from "@/store/useErrorStore.js";
 import FormList from "@/app/components/FormList/FormList";
 import Button from "../ui/Button/Button";
+import { fbLeads } from "@/utils/parseLeads";
 
 const FanpagesList = ({ ...props }: FanpagesListProps): JSX.Element => {
   const {
@@ -39,7 +39,7 @@ const FanpagesList = ({ ...props }: FanpagesListProps): JSX.Element => {
 
   const fbPages = async () => {
     const fb_access_token = Cookies.get("fb_access_token");
-    const pagesList = await getPages(fb_access_token);
+    const pagesList = await getPages(fb_access_token!);
     if (pagesList) {
       setPages(pagesList);
     }
@@ -83,7 +83,7 @@ const FanpagesList = ({ ...props }: FanpagesListProps): JSX.Element => {
     }
   };
 
-  const showLead = async (formId: string) => {
+  const showLead = async (formId: number) => {
     setLoading(true);
 
     const rawLeads = await getLeadsByForm(formId, activeForm);
