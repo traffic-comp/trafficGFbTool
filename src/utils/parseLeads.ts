@@ -21,6 +21,8 @@ export const FIELD_KEYWORDS = {
   ],
   phone: [
     "phone",
+    "Phone number",
+    "phone_number",
     "номер_телефона",
     "tel",
     "mobile",
