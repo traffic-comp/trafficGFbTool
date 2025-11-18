@@ -110,7 +110,6 @@ export const subscribeLeadForm = async (
   pageId: number,
   pageAccessToken: string
 ) => {
-  console.log(pageId, pageAccessToken);
   try {
     const res = await fetch(
       `https://graph.facebook.com/v19.0/${pageId}/subscribed_apps`,
@@ -127,7 +126,6 @@ export const subscribeLeadForm = async (
     );
 
     const data = await res.json();
-    console.log("✅ Проверка подписка:", data);
     return data;
   } catch (error) {
     if (error instanceof Error) {

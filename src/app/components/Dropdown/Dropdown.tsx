@@ -27,7 +27,6 @@ const Dropdown = ({
     const filtered = options.filter((opt) =>
       opt.toLowerCase().includes(val.toLowerCase())
     );
-    console.log(filtered);
     setFilteredOptions(filtered);
   };
 

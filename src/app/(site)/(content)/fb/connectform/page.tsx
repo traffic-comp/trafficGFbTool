@@ -136,7 +136,6 @@ const ConnectForm = () => {
     );
 
     const d = await r.json();
-    console.log(d);
   };
 
   return (

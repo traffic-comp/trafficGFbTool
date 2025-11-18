@@ -29,6 +29,7 @@ const ResultLeadsPanel = ({ ...props }: ResultLeadsPanelProps) => {
         description: lead.description ? lead.description : "",
       }))
       .filter((lead: Lead) => !lead.isDuplicate);
+
     sendToCrm(prepared);
     await saveAsDubles();
     setResult([]);
@@ -92,7 +93,8 @@ const ResultLeadsPanel = ({ ...props }: ResultLeadsPanelProps) => {
               "Country",
               "Source",
               "User_id",
-              "Landing/Landing name",
+              "Landing",
+              "UTM",
               "IP",
               "Created time",
               "",
@@ -111,7 +113,7 @@ const ResultLeadsPanel = ({ ...props }: ResultLeadsPanelProps) => {
                   className={className}
                   itemId={lead.id}
                   field={"phone"}
-                  data={'*********'}
+                  data={"*********"}
                   updatedLeads={updateLeadData}
                 />
                 <EditableItem
@@ -152,8 +154,15 @@ const ResultLeadsPanel = ({ ...props }: ResultLeadsPanelProps) => {
                 <EditableItem
                   className={className}
                   itemId={lead.id}
-                  field={"user_id"}
-                  data={`${lead.landing}/${lead.landing_name}`}
+                  field={"landing"}
+                  data={`${lead.landing}`}
+                  updatedLeads={updateLeadData}
+                />
+                <EditableItem
+                  className={className}
+                  itemId={lead.id}
+                  field={"landing_name"}
+                  data={`${lead.landing_name}`}
                   updatedLeads={updateLeadData}
                 />
                 <EditableItem
@@ -182,7 +191,7 @@ const ResultLeadsPanel = ({ ...props }: ResultLeadsPanelProps) => {
           <Button
             type="squere"
             posX="-92px"
-            posY="41px"
+            posY="46px"
             blue={true}
             rotate={true}
             onClick={() => setIsOpen(!isOpen)}
@@ -194,7 +203,7 @@ const ResultLeadsPanel = ({ ...props }: ResultLeadsPanelProps) => {
             <Button
               type="squere"
               posX="-87px"
-              posY="187px"
+              posY="185px"
               rotate={true}
               onClick={() => send()}
             >
@@ -205,7 +214,7 @@ const ResultLeadsPanel = ({ ...props }: ResultLeadsPanelProps) => {
             <Button
               type="squere"
               posX="-93px"
-              posY="334px"
+              posY="326px"
               rotate={true}
               onClick={() => saveAsDubles()}
             >
@@ -217,7 +226,7 @@ const ResultLeadsPanel = ({ ...props }: ResultLeadsPanelProps) => {
             <Button
               type="squere"
               posX="-90px"
-              posY="485px"
+              posY="470px"
               rotate={true}
               onClick={() => selectedLeads()}
             >
@@ -229,7 +238,7 @@ const ResultLeadsPanel = ({ ...props }: ResultLeadsPanelProps) => {
             <Button
               type="squere"
               posX="-61px"
-              posY="600px"
+              posY="582px"
               rotate={true}
               red={true}
               onClick={deleteLeads}

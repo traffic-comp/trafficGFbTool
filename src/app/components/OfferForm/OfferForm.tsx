@@ -25,6 +25,7 @@ const OfferForm = ({ source }: OfferFormProps): JSX.Element => {
 
   const [offer, setOffer] = useState<string>("");
   const [aff, setAff] = useState<string>("");
+  const [utm, setUtm] = useState<string>("");
   const [trafficSource, setTrafficSource] = useState<string>("");
 
   const { addMessage } = useErrorStore();
@@ -47,11 +48,11 @@ const OfferForm = ({ source }: OfferFormProps): JSX.Element => {
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (source === "fb") {
-      if (leads && offer && aff && trafficSource) {
+      if (leads && offer && aff && trafficSource && utm) {
         const leadData = leads.map((lead: Lead) => ({
           ...lead,
           landing: offer,
-          landing_name: offer,
+          landing_name: utm,
           user_id: aff,
           source: trafficSource,
         }));
@@ -65,15 +66,15 @@ const OfferForm = ({ source }: OfferFormProps): JSX.Element => {
       }
       return addMessage("warning", "Сперва заполни форму");
     } else {
-      if (leads && offer && aff && trafficSource) {
+      if (leads && offer && aff && trafficSource && utm) {
         const leadData = leads.map((lead: Lead) => {
           const phone = lead.phone.replace(/\s+/g, "");
           const isoCode = getCountryISO(phone, phonesData);
-          
+
           return {
             ...lead,
             landing: offer,
-            landing_name: offer,
+            landing_name: utm,
             user_id: aff,
             source: trafficSource,
             phone,
@@ -144,6 +145,12 @@ const OfferForm = ({ source }: OfferFormProps): JSX.Element => {
           value={trafficSource}
           onValueChange={(val) => setTrafficSource(val)}
           placeholder="Traffic Source"
+        />
+        <Dropdown
+          options={[]}
+          value={utm}
+          onValueChange={(val) => setUtm(val)}
+          placeholder="?param=value"
         />
         {source === "fb" ? (
           <Button onClick={filterByToDay}>Today</Button>

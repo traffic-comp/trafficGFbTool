@@ -26,7 +26,6 @@ export const sendToCrm = async (dto: Lead[]) => {
       }
 
       const data = await res.json();
-      console.log(data);
       addMessage("success", data.message);
     } catch (error) {
       if (error instanceof Error) {

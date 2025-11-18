@@ -41,7 +41,6 @@ export const updateTemplate = async (dto: any, formId: string) => {
 
 export const deleteTemplate = async (_id: string, formId: string) => {
   try {
-    console.log(_id, formId);
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URI}/template/deleteTemplate`,
       {
